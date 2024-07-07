@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 
-interface SearchProps {
-  onSearch: (query: string) => void;
-}
+import { ISearchProps, ISearchState } from '../../types/SearchTypes';
+import { LS_QUERY } from '../../constants';
 
-interface SearchState {
-  query: string;
-}
-
-class Search extends Component<SearchProps, SearchState> {
-  constructor(props: SearchProps) {
+class Search extends Component<ISearchProps, ISearchState> {
+  constructor(props: ISearchProps) {
     super(props);
-    const savedQuery = localStorage.getItem('searchQuery') || '';
+    const savedQuery = localStorage.getItem(LS_QUERY) || '';
     this.state = {
       query: savedQuery,
     };
@@ -24,18 +19,17 @@ class Search extends Component<SearchProps, SearchState> {
   handleSearch = () => {
     const { query } = this.state;
     const trimmedQuery = query.trim();
-    localStorage.setItem('searchQuery', trimmedQuery);
+    localStorage.setItem(LS_QUERY, trimmedQuery);
     const { onSearch } = this.props;
     onSearch(trimmedQuery);
   };
 
   render() {
-    const { query } = this.state;
     return (
-      <div>
+      <div className="search">
         <input
           type="text"
-          value={query}
+          value={this.state.query}
           onChange={this.handleChange}
           placeholder="Search..."
         />
