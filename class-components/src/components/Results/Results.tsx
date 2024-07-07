@@ -6,11 +6,10 @@ import { IResultsProps } from '../../types/SearchTypes';
 class Results extends Component<IResultsProps> {
   render() {
     const { results } = this.props;
-    return (
+    return results.length ? (
       <div>
         {results.map((result, index) => (
           <div key={index} className="result">
-            <img src={result.url} alt="" />
             <h3>{result.name}</h3>
             <p className="result__description">
               Hi! My name is {result.name}. I was born in {result.birth_year} year. My
@@ -19,6 +18,8 @@ class Results extends Component<IResultsProps> {
           </div>
         ))}
       </div>
+    ) : (
+      <h3>Nothing was founded</h3>
     );
   }
 }

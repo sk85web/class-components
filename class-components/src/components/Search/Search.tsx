@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { ISearchProps, ISearchState } from '../../types/SearchTypes';
 import { LS_QUERY } from '../../constants';
+import './Search.css';
 
 class Search extends Component<ISearchProps, ISearchState> {
   constructor(props: ISearchProps) {
@@ -24,6 +25,12 @@ class Search extends Component<ISearchProps, ISearchState> {
     onSearch(trimmedQuery);
   };
 
+  onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      this.handleSearch();
+    }
+  };
+
   render() {
     return (
       <div className="search">
@@ -32,6 +39,7 @@ class Search extends Component<ISearchProps, ISearchState> {
           value={this.state.query}
           onChange={this.handleChange}
           placeholder="Search..."
+          onKeyDown={this.onKeyDown}
         />
         <button type="button" onClick={this.handleSearch}>
           Search
