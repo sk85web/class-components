@@ -6,14 +6,13 @@ import Search from './components/Search/Search';
 import { IAppState, ISingleResult } from './types/SearchTypes';
 import { BASE_URL, LS_QUERY } from './constants';
 import Results from './components/Results/Results';
-import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
 class App extends Component<object, IAppState> {
   constructor(props: object) {
     super(props);
     this.state = {
       results: [],
-      error: null,
+      hasError: false,
     };
   }
 
@@ -37,11 +36,11 @@ class App extends Component<object, IAppState> {
           birth_year: item.birth_year,
           gender: item.gender,
         })),
-        error: null,
+        hasError: false,
       });
     } catch (error) {
       if (error instanceof Error) {
-        this.setState({ error: error.message });
+        console.error('Error fetching data:', error);
       }
     }
   };
@@ -51,26 +50,27 @@ class App extends Component<object, IAppState> {
   };
 
   simulateError = () => {
-    this.setState({ error: 'Something went wrong :(' });
+    this.setState({ hasError: true });
   };
 
   render() {
-    const { results, error } = this.state;
+    if (this.state.hasError) {
+      throw Error('test error');
+    }
+    const { results } = this.state;
     return (
-      <ErrorBoundary>
-        <div className="app">
-          <h1>Welcome to the Star Wars World</h1>
-          <div className="search-field">
-            <Search onSearch={this.handleSearch} />
-            <button className="error-btn" onClick={this.simulateError}>
-              Throw Error
-            </button>
-          </div>
-          <div className="results-field">
-            {error ? <div>Ups, {error}</div> : <Results results={results} />}
-          </div>
+      <div className="app">
+        <h1>Welcome to the Star Wars World</h1>
+        <div className="search-field">
+          <Search onSearch={this.handleSearch} />
+          <button className="error-btn" onClick={this.simulateError}>
+            Throw Error
+          </button>
         </div>
-      </ErrorBoundary>
+        <div className="results-field">
+          <Results results={results} />
+        </div>
+      </div>
     );
   }
 }

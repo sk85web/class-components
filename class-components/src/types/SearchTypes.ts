@@ -33,7 +33,7 @@ export interface IResultsProps {
 
 export interface IAppState {
   results: ISingleResult[];
-  error: string | null;
+  hasError: boolean;
 }
 
 export interface IErrorProps {

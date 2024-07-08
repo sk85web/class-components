@@ -8,9 +8,12 @@ class ErrorBoundary extends Component<IErrorProps, IErrorState> {
     this.state = { hasError: false };
   }
 
+  static getDerivedStateFromError(): IErrorState {
+    return { hasError: true };
+  }
+
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error('Uncaught error:', error, errorInfo);
-    this.setState({ hasError: true });
   }
 
   render() {
@@ -18,6 +21,7 @@ class ErrorBoundary extends Component<IErrorProps, IErrorState> {
       return (
         <div>
           <h1>Something went wrong.</h1>
+          <button onClick={() => window.location.reload()}>Reload page</button>
         </div>
       );
     }
