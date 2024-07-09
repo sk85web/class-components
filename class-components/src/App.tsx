@@ -13,6 +13,7 @@ class App extends Component<object, IAppState> {
     this.state = {
       results: [],
       hasError: false,
+      isLoading: false,
     };
   }
 
@@ -21,11 +22,12 @@ class App extends Component<object, IAppState> {
     if (query) {
       this.fetchData(query);
     } else {
-      this.fetchData('');
+      this.fetchData('Earth Animal');
     }
   }
 
   fetchData = async (query: string) => {
+    this.setState({ isLoading: true });
     try {
       const resp = await fetch(`${BASE_URL}/people/?search=${query}`);
       if (!resp.ok) {
@@ -39,11 +41,13 @@ class App extends Component<object, IAppState> {
           gender: item.gender,
         })),
         hasError: false,
+        isLoading: false,
       });
     } catch (error) {
       if (error instanceof Error) {
         console.error('Error fetching data:', error);
       }
+      this.setState({ isLoading: false });
     }
   };
 
@@ -70,7 +74,11 @@ class App extends Component<object, IAppState> {
           </button>
         </div>
         <div className="results-field">
-          <Results results={results} />
+          {this.state.isLoading ? (
+            <div className="loading">Loading...</div>
+          ) : (
+            <Results results={results} />
+          )}
         </div>
       </div>
     );

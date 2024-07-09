@@ -34,6 +34,7 @@ export interface IResultsProps {
 export interface IAppState {
   results: ISingleResult[];
   hasError: boolean;
+  isLoading: boolean;
 }
 
 export interface IErrorProps {

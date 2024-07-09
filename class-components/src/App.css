@@ -32,3 +32,8 @@
 .error-btn {
   font-size: 18px;
 }
+
+.loading {
+  font-size: 2rem;
+  font-weight: 700;
+}
