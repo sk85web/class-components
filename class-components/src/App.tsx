@@ -20,6 +20,8 @@ class App extends Component<object, IAppState> {
     const query = localStorage.getItem(LS_QUERY);
     if (query) {
       this.fetchData(query);
+    } else {
+      this.fetchData('');
     }
   }
 
