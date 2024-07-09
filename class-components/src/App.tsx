@@ -22,7 +22,7 @@ class App extends Component<object, IAppState> {
     if (query) {
       this.fetchData(query);
     } else {
-      this.fetchData('Earth Animal');
+      this.fetchData('');
     }
   }
 
