@@ -36,6 +36,9 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/no-non-null-assertion': 'off',
     'react-compiler/react-compiler': 'error',
+    'react/destructuring-assignment': 'error',
+    'react/button-has-type': 'error',
+    'react/prefer-stateless-function': 'off',
   },
   ignorePatterns: ['dist/*'],
 };

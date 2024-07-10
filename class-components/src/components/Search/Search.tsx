@@ -32,11 +32,12 @@ class Search extends Component<ISearchProps, ISearchState> {
   };
 
   render() {
+    const { query } = this.state;
     return (
       <div className="search">
         <input
           type="text"
-          value={this.state.query}
+          value={query}
           onChange={this.handleChange}
           placeholder="Search..."
           onKeyDown={this.onKeyDown}

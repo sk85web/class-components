@@ -60,7 +60,8 @@ class App extends Component<object, IAppState> {
   };
 
   render() {
-    if (this.state.hasError) {
+    const { hasError, isLoading } = this.state;
+    if (hasError) {
       throw Error('test error');
     }
     const { results } = this.state;
@@ -69,12 +70,12 @@ class App extends Component<object, IAppState> {
         <h1>Welcome to the Star Wars World</h1>
         <div className="search-field">
           <Search onSearch={this.handleSearch} />
-          <button className="error-btn" onClick={this.simulateError}>
+          <button type="button" className="error-btn" onClick={this.simulateError}>
             Throw Error
           </button>
         </div>
         <div className="results-field">
-          {this.state.isLoading ? (
+          {isLoading ? (
             <div className="loading">Loading...</div>
           ) : (
             <Results results={results} />

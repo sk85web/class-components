@@ -17,16 +17,19 @@ class ErrorBoundary extends Component<IErrorProps, IErrorState> {
   }
 
   render() {
-    if (this.state.hasError) {
+    const { hasError } = this.state;
+    if (hasError) {
       return (
         <div>
           <h1>Something went wrong.</h1>
-          <button onClick={() => window.location.reload()}>Reload page</button>
+          <button type="button" onClick={() => window.location.reload()}>
+            Reload page
+          </button>
         </div>
       );
     }
-
-    return this.props.children;
+    const { children } = this.props;
+    return children;
   }
 }
 
