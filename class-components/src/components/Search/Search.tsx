@@ -1,53 +1,40 @@
-import React, { Component } from 'react';
-
-import { ISearchProps, ISearchState } from '../../types/SearchTypes';
-import { LS_QUERY } from '../../constants';
+import { ISearchProps } from '../../types/SearchTypes';
 import './Search.css';
+import { LS_QUERY } from '../../constants';
+import { useLocalStorageQuery } from '../../hooks/useLocalStorageQuery';
 
-class Search extends Component<ISearchProps, ISearchState> {
-  constructor(props: ISearchProps) {
-    super(props);
-    const savedQuery = localStorage.getItem(LS_QUERY) || '';
-    this.state = {
-      query: savedQuery,
-    };
-  }
+const Search = ({ onSearch }: ISearchProps) => {
+  const [query, setQuery] = useLocalStorageQuery(LS_QUERY);
 
-  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ query: e.target.value });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setQuery(value);
   };
 
-  handleSearch = () => {
-    const { query } = this.state;
+  const handleSearch = () => {
     const trimmedQuery = query.trim();
-    localStorage.setItem(LS_QUERY, trimmedQuery);
-    const { onSearch } = this.props;
     onSearch(trimmedQuery);
   };
 
-  onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      this.handleSearch();
+      handleSearch();
     }
   };
-
-  render() {
-    const { query } = this.state;
-    return (
-      <div className="search">
-        <input
-          type="text"
-          value={query}
-          onChange={this.handleChange}
-          placeholder="Search..."
-          onKeyDown={this.onKeyDown}
-        />
-        <button type="button" onClick={this.handleSearch}>
-          Search
-        </button>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="search">
+      <input
+        type="text"
+        value={query}
+        onChange={handleChange}
+        placeholder="Search..."
+        onKeyDown={onKeyDown}
+      />
+      <button type="button" onClick={handleSearch}>
+        Search
+      </button>
+    </div>
+  );
+};
 
 export default Search;
