@@ -44,3 +44,10 @@ export interface IErrorProps {
 export interface IErrorState {
   hasError: boolean;
 }
+
+export interface IApiResponse {
+  count: number,
+  next: string,
+  previous: string
+  results: ISingleResult[];
+}

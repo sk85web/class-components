@@ -1,17 +1,16 @@
 #root {
-  max-width: 1280px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
 
 .app {
-  min-width: 900px;
   display: flex;
   flex-direction: column;
-  height: 100vh;
   border: 1px solid #000;
   border-radius: 10px;
+  padding: 10px 20px;
 }
 
 .search-field {
@@ -20,7 +19,6 @@
   justify-content: center;
   align-items: center;
   gap: 20px;
-  border-bottom: 1px solid #eee;
 }
 
 .results-field {

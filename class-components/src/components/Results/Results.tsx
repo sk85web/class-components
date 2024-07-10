@@ -3,14 +3,22 @@ import { IResultsProps } from '../../types/SearchTypes';
 
 const Results = ({ results }: IResultsProps) => {
   return results.length ? (
-    <div>
-      {results.map((result, index) => (
-        <div key={index} className="result">
-          <h3>{result.name}</h3>
+    <div className="result">
+      {results.map(result => (
+        <div key={result.name} className="result__item">
+          <h2>{result.name}</h2>
           <p className="result__description">
             Hi! My name is {result.name}. I was born in {result.birth_year} year. My
             gender is {result.gender}
           </p>
+          <h3>BioCard:</h3>
+          <span>Height: {result.height}</span>
+          <span>Mass: {result.mass}</span>
+          <span>Hair color: {result.hair_color}</span>
+          <span>Skin color: {result.skin_color}</span>
+          <span>Eye color: {result.eye_color}</span>
+          <span>Birth year: {result.birth_year}</span>
+          <span>Created: {result.created}</span>
         </div>
       ))}
     </div>

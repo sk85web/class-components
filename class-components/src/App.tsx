@@ -1,88 +1,95 @@
-import { Component } from 'react';
+import { useEffect, useState } from 'react';
 
 import './App.css';
 import Search from './components/Search/Search';
 
-import { IAppState, ISingleResult } from './types/SearchTypes';
-import { BASE_URL, LS_QUERY } from './constants';
+import { ISingleResult } from './types/SearchTypes';
+import { BASE_URL, LS_QUERY, TOTAL_PAGES } from './constants';
 import Results from './components/Results/Results';
+import Pagination from './components/Pagination/Pagination';
 
-class App extends Component<object, IAppState> {
-  constructor(props: object) {
-    super(props);
-    this.state = {
-      results: [],
-      hasError: false,
-      isLoading: false,
-    };
-  }
+const App = () => {
+  const [results, setResults] = useState<ISingleResult[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  componentDidMount() {
-    const query = localStorage.getItem(LS_QUERY);
-    if (query) {
-      this.fetchData(query);
-    } else {
-      this.fetchData('');
-    }
-  }
+  useEffect(() => {
+    const query = localStorage.getItem(LS_QUERY) || '';
+    fetchData(query, currentPage);
+  }, [currentPage]);
 
-  fetchData = async (query: string) => {
-    this.setState({ isLoading: true });
+  const fetchData = async (query: string, currentPage?: number) => {
+    setIsLoading(true);
     try {
-      const resp = await fetch(`${BASE_URL}/people/?search=${query}`);
+      const resp = await fetch(`${BASE_URL}/people/?search=${query}&page=${currentPage}`);
       if (!resp.ok) {
         throw new Error('Fetch response failed');
       }
       const data = await resp.json();
-      this.setState({
-        results: data.results.map((item: ISingleResult) => ({
+
+      setResults(
+        data.results.map((item: ISingleResult) => ({
           name: item.name,
           birth_year: item.birth_year,
+          height: item.height,
+          mass: item.mass,
+          hair_color: item.hair_color,
           gender: item.gender,
+          skin_color: item.skin_color,
+          eye_color: item.eye_color,
+          created: item.created,
         })),
-        hasError: false,
-        isLoading: false,
-      });
+      ),
+        setHasError(false);
+      setIsLoading(false);
     } catch (error) {
       if (error instanceof Error) {
         console.error('Error fetching data:', error);
       }
-      this.setState({ isLoading: false });
+      setIsLoading(false);
     }
   };
 
-  handleSearch = (query: string) => {
-    this.fetchData(query);
+  const handleSearch = (query: string) => {
+    fetchData(query);
   };
 
-  simulateError = () => {
-    this.setState({ hasError: true });
+  const simulateError = () => {
+    setHasError(true);
   };
 
-  render() {
-    const { hasError, isLoading } = this.state;
-    if (hasError) {
-      throw Error('test error');
-    }
-    const { results } = this.state;
-    return (
-      <div className="app">
-        <h1>Welcome to the Star Wars World</h1>
-        <div className="search-field">
-          <Search onSearch={this.handleSearch} />
-          <button type="button" className="error-btn" onClick={this.simulateError}>
-            Throw Error
-          </button>
-        </div>
-        <div className="results-field">
-          {isLoading ? (
-            <div className="loading">Loading...</div>
-          ) : (
-            <Results results={results} />
-          )}
-        </div>
-      </div>
-    );
+  if (hasError) {
+    throw Error('test error');
   }
-}
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    fetchData('', page);
+  };
+
+  return (
+    <div className="app">
+      <h1>Welcome to the Star Wars World</h1>
+      <div className="search-field">
+        <Search onSearch={handleSearch} />
+        <button type="button" className="error-btn" onClick={simulateError}>
+          Throw Error
+        </button>
+      </div>
+      <div className="results-field">
+        {isLoading ? (
+          <div className="loading">Loading...</div>
+        ) : (
+          <Results results={results} />
+        )}
+      </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={TOTAL_PAGES}
+        onPageChange={handlePageChange}
+      />
+    </div>
+  );
+};
 export default App;
