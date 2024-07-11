@@ -2,6 +2,7 @@ import './Results.css';
 import { IResultsProps } from '../../types/SearchTypes';
 
 const Results = ({ results }: IResultsProps) => {
+  console.log(results);
   return results.length ? (
     <div className="result">
       {results.map(result => (

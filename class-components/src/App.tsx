@@ -4,7 +4,7 @@ import './App.css';
 import Search from './components/Search/Search';
 
 import { ISingleResult } from './types/SearchTypes';
-import { BASE_URL, LS_QUERY, TOTAL_PAGES } from './constants';
+import { BASE_URL, LS_QUERY } from './constants';
 import Results from './components/Results/Results';
 import Pagination from './components/Pagination/Pagination';
 
@@ -13,13 +13,14 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     const query = localStorage.getItem(LS_QUERY) || '';
     fetchData(query, currentPage);
   }, [currentPage]);
 
-  const fetchData = async (query: string, currentPage?: number) => {
+  const fetchData = async (query: string, currentPage: number) => {
     setIsLoading(true);
     try {
       const resp = await fetch(`${BASE_URL}/people/?search=${query}&page=${currentPage}`);
@@ -40,8 +41,12 @@ const App = () => {
           eye_color: item.eye_color,
           created: item.created,
         })),
-      ),
-        setHasError(false);
+      );
+
+      const totalResults = data.count;
+      const pages = Math.ceil(totalResults / 10);
+      setTotalPages(pages);
+      setHasError(false);
       setIsLoading(false);
     } catch (error) {
       if (error instanceof Error) {
@@ -52,7 +57,8 @@ const App = () => {
   };
 
   const handleSearch = (query: string) => {
-    fetchData(query);
+    fetchData(query, currentPage);
+    setCurrentPage(1);
   };
 
   const simulateError = () => {
@@ -65,7 +71,8 @@ const App = () => {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    fetchData('', page);
+    const query = localStorage.getItem(LS_QUERY) || '';
+    fetchData(query, page);
   };
 
   return (
@@ -84,11 +91,13 @@ const App = () => {
           <Results results={results} />
         )}
       </div>
-      <Pagination
-        currentPage={currentPage}
-        totalPages={TOTAL_PAGES}
-        onPageChange={handlePageChange}
-      />
+      {!isLoading && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      )}
     </div>
   );
 };
