@@ -1,9 +1,6 @@
 import Search from '../Search/Search';
 
-interface IHeaderProps {
-  handleSearch: (query: string) => void;
-  simulateError: () => void;
-}
+import { IHeaderProps } from '../../types/AppTypes';
 
 const Header = ({ handleSearch, simulateError }: IHeaderProps) => {
   return (

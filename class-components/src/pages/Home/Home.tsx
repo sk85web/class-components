@@ -63,11 +63,13 @@ const Home = () => {
   };
 
   const handleSearch = (query: string) => {
+    handleCloseDetails();
     fetchData(query, currentPage);
     setCurrentPage(1);
   };
 
   const simulateError = () => {
+    handleCloseDetails();
     setHasError(true);
   };
 
@@ -95,7 +97,6 @@ const Home = () => {
   ) => {
     if (event.target === resultsFieldRef.current) {
       setSelectedItemId(null);
-      console.log('click');
     }
   };
 
@@ -122,7 +123,6 @@ const Home = () => {
               currentPage={currentPage}
               totalPages={totalPages}
               onPageChange={handlePageChange}
-              onClose={handleCloseDetails}
             />
           )}
         </div>

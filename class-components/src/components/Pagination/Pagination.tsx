@@ -7,7 +7,6 @@ const Pagination: React.FC<IPaginationProps> = ({
   currentPage,
   totalPages,
   onPageChange,
-  onClose
 }) => {
   const navigate = useNavigate();
 
@@ -38,7 +37,7 @@ const Pagination: React.FC<IPaginationProps> = ({
   };
 
   return (
-    <div className="pagination" onClick={onClose}>
+    <div className="pagination">
       <button
         type="button"
         className="nav-button"

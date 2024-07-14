@@ -27,6 +27,11 @@ export interface ISingleResult {
   url: string;
 }
 
+export interface ICardProps {
+  result: ISingleResult;
+  onClick: (itemId: string) => void;
+}
+
 export interface IResultsProps {
   results: ISingleResult[];
   currentPage: number;
@@ -54,6 +59,11 @@ export interface IApiResponse {
   results: ISingleResult[];
 }
 
+export interface IHeaderProps {
+  handleSearch: (query: string) => void;
+  simulateError: () => void;
+}
+
 export interface IDetailCardInfoProps {
   itemId: string;
   onClose: () => void;
@@ -63,5 +73,4 @@ export interface IPaginationProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
-  onClose: () => void;
 }
