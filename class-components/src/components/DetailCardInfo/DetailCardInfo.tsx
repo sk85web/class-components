@@ -39,7 +39,7 @@ const DetailCardInfo: React.FC<IDetailCardInfoProps> = ({ itemId, onClose }) => 
   return (
     <div className="detail-card-info">
       <div className="detail-card-info-close">
-        <button type="button" onClick={onClose}>
+        <button type="button" onClick={onClose} aria-label="Close">
           X
         </button>
       </div>
