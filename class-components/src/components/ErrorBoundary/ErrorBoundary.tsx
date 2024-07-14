@@ -1,6 +1,6 @@
 import { Component, ErrorInfo } from 'react';
 
-import { IErrorProps, IErrorState } from '../../types/SearchTypes';
+import { IErrorProps, IErrorState } from '../../types/AppTypes';
 
 class ErrorBoundary extends Component<IErrorProps, IErrorState> {
   constructor(props: IErrorProps) {

@@ -29,6 +29,8 @@ export interface ISingleResult {
 
 export interface IResultsProps {
   results: ISingleResult[];
+  currentPage: number;
+  onItemClick: (itemId: string) => void;
 }
 
 export interface IAppState {
@@ -46,8 +48,20 @@ export interface IErrorState {
 }
 
 export interface IApiResponse {
-  count: number,
-  next: string,
-  previous: string
+  count: number;
+  next: string;
+  previous: string;
   results: ISingleResult[];
+}
+
+export interface IDetailCardInfoProps {
+  itemId: string;
+  onClose: () => void;
+}
+
+export interface IPaginationProps {
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
+  onClose: () => void;
 }

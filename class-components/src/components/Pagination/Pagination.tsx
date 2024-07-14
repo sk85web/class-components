@@ -1,12 +1,13 @@
 import React from 'react';
 import './Pagination.css';
-import { IPaginationProps } from '../../types/PaginationTypes';
+import { IPaginationProps } from '../../types/AppTypes';
 import { useNavigate } from 'react-router-dom';
 
 const Pagination: React.FC<IPaginationProps> = ({
   currentPage,
   totalPages,
   onPageChange,
+  onClose
 }) => {
   const navigate = useNavigate();
 
@@ -37,7 +38,7 @@ const Pagination: React.FC<IPaginationProps> = ({
   };
 
   return (
-    <div className="pagination">
+    <div className="pagination" onClick={onClose}>
       <button
         type="button"
         className="nav-button"

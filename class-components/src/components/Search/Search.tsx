@@ -1,4 +1,4 @@
-import { ISearchProps } from '../../types/SearchTypes';
+import { ISearchProps } from '../../types/AppTypes';
 import './Search.css';
 import { LS_QUERY } from '../../constants';
 import { useLocalStorageQuery } from '../../hooks/useLocalStorageQuery';
