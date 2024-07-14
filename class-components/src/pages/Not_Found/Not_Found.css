@@ -1,0 +1,22 @@
+.not-found__page {
+  background: url('../../assets/not-found.png') no-repeat center;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+
+.not-found__content {
+  background-color: rgba(0, 0, 255, 0.5);
+  width: 70%;
+  height: 50%;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
