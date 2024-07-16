@@ -1,3 +1,10 @@
+.detail-info {
+  height: 100%;
+  color: #fff;
+  background: url('../../assets/bg-detail.png') no-repeat center;
+  border: 2px solid #fff;
+}
+
 .loading_detail-info {
   display: flex;
   align-items: center;
@@ -10,11 +17,13 @@
 
 .detail-content {
   font-size: 2rem;
-  text-align: left;
+  text-align: center;
 }
 
 .detail-card-info {
+  padding: 20px;
   position: relative;
+  color: #fff;
 }
 
 .detail-card-info-close {
@@ -28,6 +37,7 @@
   background-color: transparent;
   padding: 0;
   transition: all 0.2s linear;
+  color: #fff;
 }
 
 .detail-card-info-close:hover button {

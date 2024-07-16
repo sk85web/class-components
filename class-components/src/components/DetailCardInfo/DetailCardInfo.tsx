@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 import { BASE_URL } from '../../constants';
-import { ISingleResult, IDetailCardInfoProps } from '../../types/AppTypes';
+import { ICharacter, IDetailCardInfoProps } from '../../types/AppTypes';
 import './DetailCardInfo.css';
 
 const DetailCardInfo: React.FC<IDetailCardInfoProps> = ({ itemId, onClose }) => {
-  const [detailInfo, setDetailInfo] = useState<ISingleResult | null>(null);
+  const [detailInfo, setDetailInfo] = useState<ICharacter | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const DetailCardInfo: React.FC<IDetailCardInfoProps> = ({ itemId, onClose }) => 
         if (!resp.ok) {
           throw new Error('Failed to fetch detail info');
         }
-        const data: ISingleResult = await resp.json();
+        const data: ICharacter = await resp.json();
         setDetailInfo(data);
         setIsLoading(false);
       } catch (error) {

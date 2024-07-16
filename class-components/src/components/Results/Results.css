@@ -2,17 +2,23 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
-  padding: 20px;
   overflow-x: auto;
+  padding: 10px;
 }
 
 .result__item {
   border: 1px solid #000;
   border-radius: 5px;
-  padding: 10px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
-  background-color: #fff;
+  color: #fff;
+  background: url('../../assets/bg.png') no-repeat;
+  background-size: cover;
   cursor: pointer;
+  transition: all 0.4s linear;
+}
+
+.result__item:hover {
+  transform: scale(1.05);
 }
 
 .result__description {

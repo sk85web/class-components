@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import './Home.css';
-import { ISingleResult } from '../../types/AppTypes';
+import { ICharacter } from '../../types/AppTypes';
 import { BASE_URL, LS_QUERY } from '../../constants';
 import Results from '../../components/Results/Results';
 import Pagination from '../../components/Pagination/Pagination';
@@ -13,7 +13,7 @@ const Home = () => {
   const navigate = useNavigate();
   const resultsFieldRef = useRef(null);
 
-  const [results, setResults] = useState<ISingleResult[]>([]);
+  const [results, setResults] = useState<ICharacter[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,7 +35,7 @@ const Home = () => {
       const data = await resp.json();
 
       setResults(
-        data.results.map((item: ISingleResult) => ({
+        data.results.map((item: ICharacter) => ({
           name: item.name,
           birth_year: item.birth_year,
           height: item.height,

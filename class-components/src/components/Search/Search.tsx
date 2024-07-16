@@ -12,8 +12,8 @@ const Search = ({ onSearch }: ISearchProps) => {
   };
 
   const handleSearch = () => {
-    const trimmedQuery = query.trim();
-    onSearch(trimmedQuery);
+    const normalizedQuery = query.trim();
+    onSearch(normalizedQuery);
   };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

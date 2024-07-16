@@ -8,7 +8,7 @@ export interface ISearchState {
   query: string;
 }
 
-export interface ISingleResult {
+export interface ICharacter {
   name: string;
   height: string;
   mass: string;
@@ -28,18 +28,18 @@ export interface ISingleResult {
 }
 
 export interface ICardProps {
-  result: ISingleResult;
+  result: ICharacter;
   onClick: (itemId: string) => void;
 }
 
 export interface IResultsProps {
-  results: ISingleResult[];
+  results: ICharacter[];
   currentPage: number;
   onItemClick: (itemId: string) => void;
 }
 
 export interface IAppState {
-  results: ISingleResult[];
+  results: ICharacter[];
   hasError: boolean;
   isLoading: boolean;
 }
@@ -56,7 +56,7 @@ export interface IApiResponse {
   count: number;
   next: string;
   previous: string;
-  results: ISingleResult[];
+  results: ICharacter[];
 }
 
 export interface IHeaderProps {

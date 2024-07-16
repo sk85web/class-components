@@ -1,16 +1,56 @@
-import { it, vi, expect } from 'vitest';
-import { render, fireEvent } from '@testing-library/react';
-import { LS_QUERY } from '../../../constants';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { describe, it, expect, beforeEach } from 'vitest';
 import Search from '../Search';
 
-it('Search component saves query to local storage on Search button click', async () => {
-  const mockOnSearch = vi.fn();
-  const { getByPlaceholderText, getByText } = render(<Search onSearch={mockOnSearch} />);
-  const input = getByPlaceholderText('Search...');
-  const searchButton = getByText('Search');
+function mockLocalStorage() {
+  let store: Record<string, string> = {};
 
-  fireEvent.input(input, { target: { value: 'Luke Skywalker' } });
-  fireEvent.click(searchButton);
+  return {
+    getItem: (key: string) => store[key] || null,
+    setItem: (key: string, value: string) => {
+      store[key] = value;
+    },
+    clear: () => {
+      store = {};
+    },
+    removeItem: (key: string) => {
+      delete store[key];
+    },
+  };
+}
 
-  expect(localStorage.getItem(LS_QUERY)).toBe('Luke Skywalker');
+describe('Search Component', () => {
+  const localStorageMock = mockLocalStorage();
+
+  beforeEach(() => {
+    Object.defineProperty(window, 'localStorage', {
+      value: localStorageMock,
+    });
+    localStorageMock.clear();
+  });
+
+  it('saves the entered value to local storage on clicking the Search button', () => {
+    const searchQuery = 'Luke Skywalker';
+    const handleSearch = (query: string) => {
+      localStorage.setItem('searchTerm', query);
+    };
+
+    render(<Search onSearch={handleSearch} />);
+
+    fireEvent.change(screen.getByRole('textbox'), {
+      target: { value: searchQuery },
+    });
+    fireEvent.click(screen.getByRole('button', { name: /search/i }));
+
+    expect(localStorage.getItem('searchQuery')).toBe(searchQuery);
+  });
+
+  it('retrieves the value from local storage upon mounting', () => {
+    const searchQuery = 'Darth Vader';
+    localStorage.setItem('searchQuery', searchQuery);
+
+    render(<Search onSearch={() => {}} />);
+
+    expect(screen.getByRole('textbox')).toHaveValue(searchQuery);
+  });
 });

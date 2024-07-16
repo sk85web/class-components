@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import Results from '../Results';
-import { IResultsProps, ISingleResult } from '../../../types/AppTypes';
+import { IResultsProps, ICharacter } from '../../../types/AppTypes';
 import '@testing-library/jest-dom';
 
 const mockNavigate = vi.fn();
@@ -20,7 +20,7 @@ const renderResults = (props: Partial<IResultsProps> = {}) => {
 
 describe('Results component', () => {
   it('renders the specified number of cards', () => {
-    const results: ISingleResult[] = [
+    const results: ICharacter[] = [
       {
         name: 'Luke Skywalker',
         height: '172',
