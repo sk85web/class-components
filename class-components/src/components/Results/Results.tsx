@@ -7,7 +7,6 @@ import Card from '../Card/Card';
 const Results = ({ results, currentPage, onItemClick }: IResultsProps) => {
   const navigate = useNavigate();
 
-  
 
 
 
