@@ -7,9 +7,6 @@ import Card from '../Card/Card';
 const Results = ({ results, currentPage, onItemClick }: IResultsProps) => {
   const navigate = useNavigate();
 
-
-  
-
   const handleItemClick = (itemId: string) => {
     onItemClick(itemId);
     navigate(`/?frontpage=${currentPage}&details=${itemId}`);
