@@ -8,8 +8,10 @@ import Results from '../../components/Results/Results';
 import Pagination from '../../components/Pagination/Pagination';
 import Header from '../../components/Header/Header';
 import DetailCardInfo from '../../components/DetailCardInfo/DetailCardInfo';
+// import { ThemeContext } from '../../App';
 
 const Home = () => {
+  // const theme = useContext(ThemeContext);
   const navigate = useNavigate();
   const resultsFieldRef = useRef(null);
 

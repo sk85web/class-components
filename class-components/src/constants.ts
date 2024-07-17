@@ -5,3 +5,8 @@ export const ROUTES = {
   HOME_PAGE: '/',
   NOT_FOUND_PAGE: '*',
 };
+
+export const THEMES = {
+  LIGHT: 'light',
+  DARK: 'dark',
+};

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, Dispatch, SetStateAction } from 'react';
 
 export interface ISearchProps {
   onSearch: (query: string) => void;
@@ -73,4 +73,9 @@ export interface IPaginationProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
+}
+
+export interface IThemeContext {
+  theme: string;
+  setTheme: Dispatch<SetStateAction<string>>;
 }
