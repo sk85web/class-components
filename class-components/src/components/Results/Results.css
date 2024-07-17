@@ -9,7 +9,7 @@
 .result__item {
   border: 1px solid #000;
   border-radius: 5px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.39);
   color: #fff;
   background: url('../../assets/bg.png') no-repeat;
   background-size: cover;
