@@ -9,6 +9,7 @@ const Results = ({ results, currentPage, onItemClick }: IResultsProps) => {
 
 
 
+  
 
   const handleItemClick = (itemId: string) => {
     onItemClick(itemId);
