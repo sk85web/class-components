@@ -9,3 +9,20 @@ body {
   background: url('./assets/bg.png') no-repeat;
   background-size: cover;
 }
+
+.dark {
+  background-color: rgba(51, 51, 51, 0.7);
+}
+
+.light {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.theme-dark {
+  background-color: #333;
+  color: #fff;
+}
+.theme-light {
+  background-color: #fff;
+  color: #000;
+}

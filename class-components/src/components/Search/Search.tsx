@@ -2,9 +2,12 @@ import { ISearchProps } from '../../types/AppTypes';
 import './Search.css';
 import { LS_QUERY } from '../../constants';
 import { useLocalStorageQuery } from '../../hooks/useLocalStorageQuery';
+import { useContext } from 'react';
+import { ThemeContext } from '../../App';
 
 const Search = ({ onSearch }: ISearchProps) => {
   const [query, setQuery] = useLocalStorageQuery(LS_QUERY);
+  const { theme } = useContext(ThemeContext);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -29,8 +32,9 @@ const Search = ({ onSearch }: ISearchProps) => {
         onChange={handleChange}
         placeholder="Search..."
         onKeyDown={onKeyDown}
+        className={'search-input ' + `theme-${theme}`}
       />
-      <button type="button" onClick={handleSearch}>
+      <button className={`theme-${theme}`} type="button" onClick={handleSearch}>
         Search
       </button>
     </div>

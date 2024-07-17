@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Pagination.css';
 import { IPaginationProps } from '../../types/AppTypes';
 import { useNavigate } from 'react-router-dom';
+import { ThemeContext } from '../../App';
 
 const Pagination: React.FC<IPaginationProps> = ({
   currentPage,
@@ -9,6 +10,7 @@ const Pagination: React.FC<IPaginationProps> = ({
   onPageChange,
 }) => {
   const navigate = useNavigate();
+  const { theme } = useContext(ThemeContext);
 
   const handlePageChange = (page: number) => {
     onPageChange(page);
@@ -26,7 +28,7 @@ const Pagination: React.FC<IPaginationProps> = ({
         <button
           type="button"
           key={i}
-          className={`page-button ${i === currentPage ? 'active' : ''}`}
+          className={`page-button theme-${theme} ${i === currentPage ? 'active' : ''}`}
           onClick={() => handlePageChange(i)}
         >
           {i}
@@ -40,7 +42,7 @@ const Pagination: React.FC<IPaginationProps> = ({
     <div className="pagination">
       <button
         type="button"
-        className="nav-button"
+        className={`nav-button theme-${theme}`}
         onClick={handleFirstPage}
         disabled={currentPage === 1}
       >
@@ -48,7 +50,7 @@ const Pagination: React.FC<IPaginationProps> = ({
       </button>
       <button
         type="button"
-        className="nav-button"
+        className={`nav-button theme-${theme}`}
         onClick={handlePrevPage}
         disabled={currentPage === 1}
       >
@@ -57,7 +59,7 @@ const Pagination: React.FC<IPaginationProps> = ({
       {renderPageNumbers()}
       <button
         type="button"
-        className="nav-button"
+        className={`nav-button theme-${theme}`}
         onClick={handleNextPage}
         disabled={currentPage === totalPages}
       >
@@ -65,7 +67,7 @@ const Pagination: React.FC<IPaginationProps> = ({
       </button>
       <button
         type="button"
-        className="nav-button"
+        className={`nav-button theme-${theme}`}
         onClick={handleLastPage}
         disabled={currentPage === totalPages}
       >

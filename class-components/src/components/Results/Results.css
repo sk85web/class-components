@@ -10,13 +10,25 @@
   border: 1px solid #000;
   border-radius: 5px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.39);
-  color: #fff;
-  background: url('../../assets/bg.png') no-repeat;
   background-size: cover;
   cursor: pointer;
   transition: all 0.4s linear;
   border: 1px solid #fff;
   padding: 5px;
+}
+
+.result__item_dark {
+  color: #fff;
+  background: url('../../assets/bg.png') no-repeat;
+}
+
+.result__item_light {
+  color: #000;
+  background: url('../../assets/bg-light.png') no-repeat;
+}
+
+.result__item_light .result__description {
+  background-color: rgba(193, 244, 245, 0.8);
 }
 
 .result__item:hover {

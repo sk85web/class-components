@@ -8,7 +8,7 @@ const ThemeBtn = () => {
   const [isChecked, setIsChecked] = useState(false);
 
   const toggleTheme = () => {
-    const newTheme = isChecked ? THEMES.LIGHT : THEMES.DARK;
+    const newTheme = isChecked ? THEMES.DARK : THEMES.LIGHT;
     setIsChecked(!isChecked);
     setTheme(newTheme);
     console.log(theme);
