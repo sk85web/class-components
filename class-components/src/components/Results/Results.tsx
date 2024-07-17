@@ -8,6 +8,8 @@ const Results = ({ results, currentPage, onItemClick }: IResultsProps) => {
   const navigate = useNavigate();
 
 
+
+
   
   const handleItemClick = (itemId: string) => {
     onItemClick(itemId);
