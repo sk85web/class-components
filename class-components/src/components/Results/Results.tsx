@@ -10,7 +10,6 @@ const Results = ({ results, currentPage, onItemClick }: IResultsProps) => {
 
 
 
-
   const handleItemClick = (itemId: string) => {
     onItemClick(itemId);
     navigate(`/?frontpage=${currentPage}&details=${itemId}`);
