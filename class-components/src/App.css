@@ -5,9 +5,18 @@
   text-align: center;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
+}
+
 body {
   background: url('./assets/bg.png') no-repeat;
   background-size: cover;
+  box-sizing: border-box;
 }
 
 .dark {

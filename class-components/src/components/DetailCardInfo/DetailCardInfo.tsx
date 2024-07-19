@@ -1,40 +1,59 @@
-import React, { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { BASE_URL } from '../../constants';
-import { ICharacter, IDetailCardInfoProps } from '../../types/AppTypes';
+import { ICharacter } from '../../types/AppTypes';
 import './DetailCardInfo.css';
+import { ThemeContext } from '../../App';
+import { setCardId } from '../../redux/slices/cardSlice';
+import { RootState } from '../../redux/store';
 
-const DetailCardInfo: React.FC<IDetailCardInfoProps> = ({ itemId, onClose }) => {
+const DetailCardInfo = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [detailInfo, setDetailInfo] = useState<ICharacter | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const { theme } = useContext(ThemeContext);
+
+  const [isLoading, setIsLoading] = useState(true);
+  const { cardId } = useSelector((state: RootState) => state.card);
 
   useEffect(() => {
     const fetchDetailInfo = async () => {
-      setIsLoading(true);
       try {
-        const resp = await fetch(`${BASE_URL}people/${itemId}/`);
+        const resp = await fetch(`${BASE_URL}people/${cardId}/`);
         if (!resp.ok) {
           throw new Error('Failed to fetch detail info');
         }
         const data: ICharacter = await resp.json();
         setDetailInfo(data);
-        setIsLoading(false);
       } catch (error) {
         console.error('Error fetching detail info:', error);
+      } finally {
         setIsLoading(false);
       }
     };
 
     fetchDetailInfo();
-  }, [itemId]);
+  }, [cardId]);
 
   if (isLoading) {
-    return <div className="loading loading_detail-info">Loading detail info...</div>;
+    return (
+      <div className={`loading loading_detail-info loading-${theme}`}>
+        Loading detail info...
+      </div>
+    );
   }
 
   if (!detailInfo) {
     return <div className="detail-card-info">Detail info not found.</div>;
   }
+
+  const onClose = () => {
+    dispatch(setCardId(null));
+    navigate('/');
+  };
 
   return (
     <div className="detail-card-info">

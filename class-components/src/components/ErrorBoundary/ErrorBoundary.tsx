@@ -1,6 +1,7 @@
 import { Component, ErrorInfo } from 'react';
 
 import { IErrorProps, IErrorState } from '../../types/AppTypes';
+import './ErrorBoundary.css';
 
 class ErrorBoundary extends Component<IErrorProps, IErrorState> {
   constructor(props: IErrorProps) {
@@ -22,7 +23,11 @@ class ErrorBoundary extends Component<IErrorProps, IErrorState> {
       return (
         <div>
           <h1>Something went wrong.</h1>
-          <button type="button" onClick={() => window.location.reload()}>
+          <button
+            className="reload-btn"
+            type="button"
+            onClick={() => window.location.reload()}
+          >
             Reload page
           </button>
         </div>

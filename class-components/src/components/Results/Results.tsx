@@ -1,25 +1,33 @@
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import './Results.css';
-import { IResultsProps } from '../../types/AppTypes';
 import Card from '../Card/Card';
+import { ThemeContext } from '../../App';
+import { setCardId } from '../../redux/slices/cardSlice';
+import { RootState } from '../../redux/store';
 
-const Results = ({ results, currentPage, onItemClick }: IResultsProps) => {
+const Results = () => {
   const navigate = useNavigate();
+  const { theme } = useContext(ThemeContext);
+  const dispatch = useDispatch();
+  const { currentPage } = useSelector((state: RootState) => state.ui);
+  const { cards } = useSelector((state: RootState) => state.card);
 
   const handleItemClick = (itemId: string) => {
-    onItemClick(itemId);
+    dispatch(setCardId(itemId));
     navigate(`/?frontpage=${currentPage}&details=${itemId}`);
   };
 
-  return results.length ? (
+  return cards.length ? (
     <div className="result">
-      {results.map(result => (
+      {cards.map(result => (
         <Card key={result.name} result={result} onClick={handleItemClick} />
       ))}
     </div>
   ) : (
-    <h3>Nothing was founded</h3>
+    <h3 className={`title_${theme}`}>Nothing was founded</h3>
   );
 };
 

@@ -1,9 +1,5 @@
 import { ReactNode, Dispatch, SetStateAction } from 'react';
 
-export interface ISearchProps {
-  onSearch: (query: string) => void;
-}
-
 export interface ISearchState {
   query: string;
 }
@@ -32,12 +28,6 @@ export interface ICardProps {
   onClick: (itemId: string) => void;
 }
 
-export interface IResultsProps {
-  results: ICharacter[];
-  currentPage: number;
-  onItemClick: (itemId: string) => void;
-}
-
 export interface IAppState {
   results: ICharacter[];
   hasError: boolean;
@@ -57,22 +47,6 @@ export interface IApiResponse {
   next: string;
   previous: string;
   results: ICharacter[];
-}
-
-export interface IHeaderProps {
-  handleSearch: (query: string) => void;
-  simulateError: () => void;
-}
-
-export interface IDetailCardInfoProps {
-  itemId: string;
-  onClose: () => void;
-}
-
-export interface IPaginationProps {
-  currentPage: number;
-  totalPages: number;
-  onPageChange: (page: number) => void;
 }
 
 export interface IThemeContext {

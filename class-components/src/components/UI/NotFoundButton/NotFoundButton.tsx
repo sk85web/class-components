@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../constants';
+import './NotFoundButton.css';
 
 const NotFoundButton = () => {
   const navigate = useNavigate();
@@ -8,7 +9,7 @@ const NotFoundButton = () => {
   };
   return (
     <div>
-      <button type="button" onClick={handleToMainPage}>
+      <button className="not-found-btn" type="button" onClick={handleToMainPage}>
         Back Main
       </button>
     </div>

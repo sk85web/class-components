@@ -1,18 +1,25 @@
 import Search from '../Search/Search';
 
-import { IHeaderProps } from '../../types/AppTypes';
 import './Header.css';
 import { useContext } from 'react';
 import { ThemeContext } from '../../App';
 import ThemeBtn from '../UI/ThemeBtn/ThemeBtn';
+import { useDispatch } from 'react-redux';
+import { setHasError } from '../../redux/slices/uiSlice';
 
-const Header = ({ handleSearch, simulateError }: IHeaderProps) => {
+const Header = () => {
   const { theme } = useContext(ThemeContext);
+  const dispatch = useDispatch();
+
+  const simulateError = () => {
+    dispatch(setHasError(true));
+  };
+
   return (
     <div>
       <h1 className={`header__title header__title_${theme}`}>Star Wars World</h1>
       <div className="search-field">
-        <Search onSearch={handleSearch} />
+        <Search />
         <button type="button" className={`theme-${theme}`} onClick={simulateError}>
           Throw Error
         </button>

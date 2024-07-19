@@ -10,3 +10,11 @@ export const THEMES = {
   LIGHT: 'light',
   DARK: 'dark',
 };
+
+export enum STATUS {
+  LOADING = 'loading',
+  SUCCESS = 'success',
+  ERROR = 'error',
+}
+
+export const CARDS_ON_PAGE = 10;

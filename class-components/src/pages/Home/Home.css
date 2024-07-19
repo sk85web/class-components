@@ -14,16 +14,16 @@
 .search-field {
   flex: 0.5;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 20px;
-  margin-bottom: 10px;
+  margin: 50px 0;
 }
 
 .results-field {
   flex: 1;
   overflow-y: auto;
-  padding: 0 100px;
+  padding: 10px 50px 0 0;
 }
 
 .detail-info {
@@ -42,4 +42,12 @@
   font-size: 2rem;
   font-weight: 700;
   color: #fff;
+}
+
+.loading-dark {
+  color: #fff;
+}
+
+.loading-light {
+  color: #000;
 }

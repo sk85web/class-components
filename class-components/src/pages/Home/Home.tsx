@@ -1,138 +1,59 @@
-import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useRef, useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import './Home.css';
-import { ICharacter } from '../../types/AppTypes';
-import { BASE_URL, LS_QUERY } from '../../constants';
+import { LS_QUERY, STATUS } from '../../constants';
 import Results from '../../components/Results/Results';
 import Pagination from '../../components/Pagination/Pagination';
 import Header from '../../components/Header/Header';
 import DetailCardInfo from '../../components/DetailCardInfo/DetailCardInfo';
-// import { ThemeContext } from '../../App';
+import { ThemeContext } from '../../App';
+import { fetchCards, setCardId } from '../../redux/slices/cardSlice';
+import { AppDispatch, RootState } from '../../redux/store';
 
 const Home = () => {
-  // const theme = useContext(ThemeContext);
-  const navigate = useNavigate();
+  const { theme } = useContext(ThemeContext);
   const resultsFieldRef = useRef(null);
 
-  const [results, setResults] = useState<ICharacter[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [hasError, setHasError] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
+  const dispatch = useDispatch<AppDispatch>();
+
+  const { cardId, status } = useSelector((state: RootState) => state.card);
+  const { hasError, currentPage } = useSelector((state: RootState) => state.ui);
 
   useEffect(() => {
     const query = localStorage.getItem(LS_QUERY) || '';
-    fetchData(query, currentPage);
+    dispatch(fetchCards({ query, currentPage }));
   }, [currentPage]);
-
-  const fetchData = async (query: string, currentPage: number) => {
-    setIsLoading(true);
-    try {
-      const resp = await fetch(`${BASE_URL}/people/?search=${query}&page=${currentPage}`);
-      if (!resp.ok) {
-        throw new Error('Fetch response failed');
-      }
-      const data = await resp.json();
-
-      setResults(
-        data.results.map((item: ICharacter) => ({
-          name: item.name,
-          birth_year: item.birth_year,
-          height: item.height,
-          mass: item.mass,
-          hair_color: item.hair_color,
-          gender: item.gender,
-          skin_color: item.skin_color,
-          eye_color: item.eye_color,
-          created: item.created,
-          url: item.url,
-        })),
-      );
-
-      const totalResults = data.count;
-      const pages = Math.ceil(totalResults / 10);
-      setTotalPages(pages);
-      setHasError(false);
-      setIsLoading(false);
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error('Error fetching data:', error);
-      }
-      setIsLoading(false);
-    }
-  };
-
-  const handleSearch = (query: string) => {
-    handleCloseDetails();
-    fetchData(query, currentPage);
-    setCurrentPage(1);
-  };
-
-  const simulateError = () => {
-    handleCloseDetails();
-    setHasError(true);
-  };
 
   if (hasError) {
     throw Error('test error');
   }
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    const query = localStorage.getItem(LS_QUERY) || '';
-    fetchData(query, page);
-  };
-
-  const handleItemClick = (itemId: string) => {
-    setSelectedItemId(itemId);
-  };
-
-  const handleCloseDetails = () => {
-    setSelectedItemId(null);
-    navigate('/');
-  };
-
   const handleResultsFieldClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) => {
     if (event.target === resultsFieldRef.current) {
-      setSelectedItemId(null);
+      dispatch(setCardId(null));
     }
   };
 
   return (
     <div className="app">
-      <Header handleSearch={handleSearch} simulateError={simulateError} />
+      <Header />
       <div className="content">
         <div
           className="results-field"
           ref={resultsFieldRef}
           onClick={handleResultsFieldClick}
         >
-          {isLoading ? (
-            <div className="loading">Loading...</div>
+          {status === STATUS.LOADING ? (
+            <div className={`loading loading-${theme}`}>Loading...</div>
           ) : (
-            <Results
-              results={results}
-              currentPage={currentPage}
-              onItemClick={handleItemClick}
-            />
+            <Results />
           )}
-          {!isLoading && (
-            <Pagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={handlePageChange}
-            />
-          )}
+          {status !== STATUS.LOADING && <Pagination />}
         </div>
-        {selectedItemId && (
-          <div className="detail-info">
-            <DetailCardInfo itemId={selectedItemId} onClose={handleCloseDetails} />
-          </div>
-        )}
+        {cardId && <DetailCardInfo />}
       </div>
     </div>
   );

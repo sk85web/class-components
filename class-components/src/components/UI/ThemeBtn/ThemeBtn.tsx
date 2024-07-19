@@ -4,14 +4,13 @@ import { ThemeContext } from '../../../App';
 import { THEMES } from '../../../constants';
 
 const ThemeBtn = () => {
-  const { theme, setTheme } = useContext(ThemeContext);
+  const { setTheme } = useContext(ThemeContext);
   const [isChecked, setIsChecked] = useState(false);
 
   const toggleTheme = () => {
     const newTheme = isChecked ? THEMES.DARK : THEMES.LIGHT;
     setIsChecked(!isChecked);
     setTheme(newTheme);
-    console.log(theme);
   };
 
   return (
@@ -25,8 +24,8 @@ const ThemeBtn = () => {
       />
       <label className="theme-switch-label" htmlFor="theme-switch">
         <div className="theme-icons-block">
-          <span className="theme-switch-icon"> 🌙 </span>
-          <span className="theme-switch-icon"> ☀️</span>
+          <span className="theme-switch-icon">🌙</span>
+          <span className="theme-switch-icon">☀️</span>
         </div>
         <div className="theme-switch-ball"></div>
       </label>
