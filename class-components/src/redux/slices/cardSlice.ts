@@ -5,11 +5,13 @@ import { ICharacter } from '../../types/AppTypes';
 interface ICardState {
   cardId: string | null;
   selectedCard: ICharacter | null;
+  cards: ICharacter[] | [];
 }
 
 const initialState: ICardState = {
   cardId: '',
   selectedCard: null,
+  cards: [],
 };
 
 export const cardSlice = createSlice({
@@ -22,9 +24,12 @@ export const cardSlice = createSlice({
     setSelectedCard: (state, action: PayloadAction<ICharacter>) => {
       state.selectedCard = action.payload;
     },
+    setCards: (state, action: PayloadAction<ICharacter[]>) => {
+      state.cards = action.payload;
+    },
   },
 });
 
-export const { setCardId, setSelectedCard } = cardSlice.actions;
+export const { setCardId, setSelectedCard, setCards } = cardSlice.actions;
 
 export default cardSlice.reducer;
