@@ -1,14 +1,15 @@
-import { useEffect, useRef, useContext } from 'react';
+import { useRef, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import './Home.css';
-import { LS_QUERY, STATUS } from '../../constants';
+import { LS_QUERY } from '../../constants';
 import Results from '../../components/Results/Results';
 import Pagination from '../../components/Pagination/Pagination';
 import Header from '../../components/Header/Header';
 import DetailCardInfo from '../../components/DetailCardInfo/DetailCardInfo';
 import { ThemeContext } from '../../App';
-import { fetchCards, setCardId } from '../../redux/slices/cardSlice';
+import { setCardId } from '../../redux/slices/cardSlice';
+import { useGetAllCardsQuery } from '../../redux/services/CardService';
 import { AppDispatch, RootState } from '../../redux/store';
 
 const Home = () => {
@@ -17,16 +18,14 @@ const Home = () => {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const { cardId, status } = useSelector((state: RootState) => state.card);
+  const { cardId } = useSelector((state: RootState) => state.card);
   const { hasError, currentPage } = useSelector((state: RootState) => state.ui);
 
-  useEffect(() => {
-    const query = localStorage.getItem(LS_QUERY) || '';
-    dispatch(fetchCards({ query, currentPage }));
-  }, [currentPage]);
+  const query = localStorage.getItem(LS_QUERY) || '';
+  const { isLoading, error } = useGetAllCardsQuery({ query, currentPage });
 
   if (hasError) {
-    throw Error('test error');
+    if (error) throw Error('test error');
   }
 
   const handleResultsFieldClick = (
@@ -46,12 +45,12 @@ const Home = () => {
           ref={resultsFieldRef}
           onClick={handleResultsFieldClick}
         >
-          {status === STATUS.LOADING ? (
+          {isLoading ? (
             <div className={`loading loading-${theme}`}>Loading...</div>
           ) : (
             <Results />
           )}
-          {status !== STATUS.LOADING && <Pagination />}
+          {!isLoading && <Pagination />}
         </div>
         {cardId && <DetailCardInfo />}
       </div>

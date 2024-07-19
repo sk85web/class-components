@@ -11,7 +11,7 @@ const Card: React.FC<ICardProps> = ({ result, onClick }) => {
 
   return (
     <div className={`result__item result__item_${theme}`} onClick={() => onClick(itemId)}>
-      <h2>{result.name}</h2>
+      <h2 className="result__title">{result.name}</h2>
       <p className="result__description">
         Hi! My name is {result.name}. I was born in {result.birth_year} year. My gender is{' '}
         {result.gender}

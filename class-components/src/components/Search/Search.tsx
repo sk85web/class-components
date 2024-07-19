@@ -6,25 +6,28 @@ import { LS_QUERY } from '../../constants';
 import { useLocalStorageQuery } from '../../hooks/useLocalStorageQuery';
 import { ThemeContext } from '../../App';
 import { AppDispatch, RootState } from '../../redux/store';
-import { fetchCards } from '../../redux/slices/cardSlice';
 import { setCurrentPage } from '../../redux/slices/uiSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Search = () => {
+  const navigate = useNavigate();
+  const { theme } = useContext(ThemeContext);
+
   const dispatch: AppDispatch = useDispatch();
-  const { hasError } = useSelector((state: RootState) => state.ui);
+  const { hasError, currentPage } = useSelector((state: RootState) => state.ui);
 
   const [query, setQuery] = useLocalStorageQuery(LS_QUERY);
-  const { theme } = useContext(ThemeContext);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setQuery(value);
   };
 
-  const handleSearch = (query: string) => {
+  const handleSearch = () => {
     const normalizedQuery = query.trim();
-    dispatch(fetchCards({ query: normalizedQuery, currentPage: 1 }));
+    setQuery(normalizedQuery);
     dispatch(setCurrentPage(1));
+    navigate(`?search=${normalizedQuery}&page=${currentPage}`);
   };
 
   if (hasError) {
@@ -33,9 +36,10 @@ const Search = () => {
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      handleSearch(query);
+      handleSearch();
     }
   };
+
   return (
     <div className="search">
       <input
@@ -46,11 +50,7 @@ const Search = () => {
         onKeyDown={onKeyDown}
         className={'search-input ' + `theme-${theme}`}
       />
-      <button
-        className={`search_${theme}`}
-        type="button"
-        onClick={() => handleSearch(query)}
-      >
+      <button className={`search_${theme}`} type="button" onClick={() => handleSearch()}>
         Search
       </button>
     </div>

@@ -7,28 +7,28 @@ import { ThemeContext } from '../../App';
 import { AppDispatch, RootState } from '../../redux/store';
 import { CARDS_ON_PAGE } from '../../constants';
 import { setCurrentPage } from '../../redux/slices/uiSlice';
-import { fetchCards } from '../../redux/slices/cardSlice';
 import { LS_QUERY } from '../../constants';
+
+import { useGetAllCardsQuery } from '../../redux/services/CardService';
 
 const Pagination = () => {
   const navigate = useNavigate();
   const { theme } = useContext(ThemeContext);
   const { currentPage } = useSelector((state: RootState) => state.ui);
-  const { count } = useSelector((state: RootState) => state.card);
 
   const dispatch: AppDispatch = useDispatch();
+  const query = localStorage.getItem(LS_QUERY) || '';
+  const { data, isLoading } = useGetAllCardsQuery({ query, currentPage });
 
-  const total = Math.ceil(count / CARDS_ON_PAGE);
+  const total = data ? Math.ceil(data.count / CARDS_ON_PAGE) : 0;
 
   const handlePageChange = (page: number) => {
     dispatch(setCurrentPage(page));
-    const query = localStorage.getItem(LS_QUERY) || '';
-    dispatch(fetchCards({ query, currentPage: page }));
     navigate(`?page=${page}`);
   };
 
   const handleFirstPage = () => handlePageChange(1);
-  const handleLastPage = () => handlePageChange(count);
+  const handleLastPage = () => handlePageChange(total);
   const handlePrevPage = () => handlePageChange(currentPage - 1);
   const handleNextPage = () => handlePageChange(currentPage + 1);
 
@@ -55,7 +55,7 @@ const Pagination = () => {
         type="button"
         className={`nav-button theme-${theme}`}
         onClick={handleFirstPage}
-        disabled={currentPage === 1}
+        disabled={currentPage === 1 || isLoading}
       >
         First
       </button>
@@ -63,7 +63,7 @@ const Pagination = () => {
         type="button"
         className={`nav-button theme-${theme}`}
         onClick={handlePrevPage}
-        disabled={currentPage === 1}
+        disabled={currentPage === 1 || isLoading}
       >
         Prev
       </button>
@@ -72,7 +72,7 @@ const Pagination = () => {
         type="button"
         className={`nav-button theme-${theme}`}
         onClick={handleNextPage}
-        disabled={currentPage === total}
+        disabled={currentPage === total || isLoading}
       >
         Next
       </button>
@@ -80,7 +80,7 @@ const Pagination = () => {
         type="button"
         className={`nav-button theme-${theme}`}
         onClick={handleLastPage}
-        disabled={currentPage === total}
+        disabled={currentPage === total || isLoading}
       >
         Last
       </button>

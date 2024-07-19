@@ -1,42 +1,21 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { BASE_URL } from '../../constants';
-import { ICharacter } from '../../types/AppTypes';
 import './DetailCardInfo.css';
 import { ThemeContext } from '../../App';
 import { setCardId } from '../../redux/slices/cardSlice';
 import { RootState } from '../../redux/store';
+import { useGetCardByIdQuery } from '../../redux/services/CardService';
 
 const DetailCardInfo = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [detailInfo, setDetailInfo] = useState<ICharacter | null>(null);
   const { theme } = useContext(ThemeContext);
-
-  const [isLoading, setIsLoading] = useState(true);
   const { cardId } = useSelector((state: RootState) => state.card);
 
-  useEffect(() => {
-    const fetchDetailInfo = async () => {
-      try {
-        const resp = await fetch(`${BASE_URL}people/${cardId}/`);
-        if (!resp.ok) {
-          throw new Error('Failed to fetch detail info');
-        }
-        const data: ICharacter = await resp.json();
-        setDetailInfo(data);
-      } catch (error) {
-        console.error('Error fetching detail info:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchDetailInfo();
-  }, [cardId]);
+  const { data: detailInfo, isLoading, error } = useGetCardByIdQuery(cardId);
 
   if (isLoading) {
     return (
@@ -44,6 +23,10 @@ const DetailCardInfo = () => {
         Loading detail info...
       </div>
     );
+  }
+
+  if (error) {
+    return <div className="detail-card-info">Something went wrong</div>;
   }
 
   if (!detailInfo) {
