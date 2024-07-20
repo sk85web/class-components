@@ -1,0 +1,67 @@
+.card__item {
+  border: 1px solid #000;
+  border-radius: 5px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.39);
+  background-size: cover;
+  cursor: pointer;
+  transition: all 0.4s linear;
+  border: 1px solid #fff;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card__item_dark {
+  color: #fff;
+  background: url('../../assets/bg.png') no-repeat;
+}
+
+.card__item_light {
+  color: #000;
+  background: url('../../assets/bg-light.png') no-repeat;
+}
+
+.card__item_light .card__description {
+  background-color: rgba(193, 244, 245, 0.8);
+}
+
+.card__item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+.card__title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.card__description {
+  margin: 10px 0;
+}
+
+.card__description span {
+  display: block;
+  margin: 5px 0;
+}
+
+.card__item-img {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.title_dark {
+  color: #fff;
+}
+
+.title_light {
+  color: #000;
+}
+.card__item-select-block {
+  display: inline-block;
+  cursor: pointer;
+}

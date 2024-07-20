@@ -24,8 +24,7 @@ export interface ICharacter {
 }
 
 export interface ICardProps {
-  result: ICharacter;
-  onClick: (itemId: string) => void;
+  card: ICharacter;
 }
 
 export interface IAppState {

@@ -7,7 +7,6 @@ export interface ICardState {
 }
 
 export interface IUiState {
-  isLoading: boolean;
   hasError: boolean;
   currentPage: number;
 }

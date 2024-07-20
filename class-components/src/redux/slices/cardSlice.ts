@@ -4,13 +4,13 @@ import { ICharacter } from '../../types/AppTypes';
 
 interface ICardState {
   cardId: string | null;
-  selectedCard: ICharacter | null;
+  selectedCards: ICharacter[];
   cards: ICharacter[] | [];
 }
 
 const initialState: ICardState = {
-  cardId: '',
-  selectedCard: null,
+  cardId: null,
+  selectedCards: [],
   cards: [],
 };
 
@@ -21,8 +21,16 @@ export const cardSlice = createSlice({
     setCardId: (state, action: PayloadAction<string | null>) => {
       state.cardId = action.payload;
     },
-    setSelectedCard: (state, action: PayloadAction<ICharacter>) => {
-      state.selectedCard = action.payload;
+    setSelectedCards: (state, action: PayloadAction<ICharacter>) => {
+      const existingCardIndex = state.selectedCards.findIndex(
+        ({ name }) => action.payload.name === name,
+      );
+
+      if (existingCardIndex !== -1) {
+        state.selectedCards.splice(existingCardIndex, 1);
+      } else {
+        state.selectedCards.push(action.payload);
+      }
     },
     setCards: (state, action: PayloadAction<ICharacter[]>) => {
       state.cards = action.payload;
@@ -30,6 +38,6 @@ export const cardSlice = createSlice({
   },
 });
 
-export const { setCardId, setSelectedCard, setCards } = cardSlice.actions;
+export const { setCardId, setSelectedCards, setCards } = cardSlice.actions;
 
 export default cardSlice.reducer;

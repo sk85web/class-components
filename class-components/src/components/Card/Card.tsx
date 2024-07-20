@@ -1,25 +1,56 @@
 import React, { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { ICardProps } from '../../types/AppTypes';
+import './Card.css';
+import { ICardProps, ICharacter } from '../../types/AppTypes';
 import { ThemeContext } from '../../App';
+import { useNavigate } from 'react-router-dom';
+import { AppDispatch, RootState } from '../../redux/store';
+import { setCardId } from '../../redux/slices/cardSlice';
+import HeartIcon from '../Icons/HeartIcon/HeartIcon';
+import { setSelectedCards } from '../../redux/slices/cardSlice';
 
-const Card: React.FC<ICardProps> = ({ result, onClick }) => {
+const Card: React.FC<ICardProps> = ({ card }) => {
   const { theme } = useContext(ThemeContext);
+  const navigate = useNavigate();
+  const dispatch: AppDispatch = useDispatch();
+  const { currentPage } = useSelector((state: RootState) => state.ui);
+  const { selectedCards } = useSelector((state: RootState) => state.card);
 
-  const splitUrl = result.url.split('/').filter(Boolean);
+  const splitUrl = card.url.split('/').filter(Boolean);
   const itemId = splitUrl[splitUrl.length - 1];
 
+  const onCardClick = (cardId: string) => {
+    dispatch(setCardId(cardId));
+    navigate(`/?frontpage=${currentPage}&details=${cardId}`);
+  };
+
+  const handleSelectCard = (card: ICharacter) => {
+    dispatch(setSelectedCards(card));
+  };
+
+  const isSelected = selectedCards.some(selectedCard => selectedCard.name === card.name);
+
   return (
-    <div className={`result__item result__item_${theme}`} onClick={() => onClick(itemId)}>
-      <h2 className="result__title">{result.name}</h2>
-      <p className="result__description">
-        Hi! My name is {result.name}. I was born in {result.birth_year} year. My gender is{' '}
-        {result.gender}
+    <div className={`card__item card__item_${theme}`} onClick={() => onCardClick(itemId)}>
+      <span
+        className="card__item-select-block"
+        onClick={e => {
+          e.stopPropagation();
+          handleSelectCard(card);
+        }}
+      >
+        <HeartIcon isSelected={isSelected} />
+      </span>
+      <h2 className="card__title">{card.name}</h2>
+      <p className="card__description">
+        Hi! My name is {card.name}. I was born in {card.birth_year} year. My gender is{' '}
+        {card.gender}
       </p>
       <img
-        className="result__item-img"
+        className="card__item-img"
         src={`https://starwars-visualguide.com/assets/img/characters/${splitUrl[splitUrl.length - 1]}.jpg`}
-        alt={result.name}
+        alt={card.name}
       />
     </div>
   );
