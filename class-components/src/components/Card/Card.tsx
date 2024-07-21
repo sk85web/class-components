@@ -32,7 +32,10 @@ const Card: React.FC<ICardProps> = ({ card }) => {
   const isSelected = selectedCards.some(selectedCard => selectedCard.name === card.name);
 
   return (
-    <div className={`card__item card__item_${theme}`} onClick={() => onCardClick(itemId)}>
+    <div
+      className={`card__item card__item_${theme} ${isSelected ? ' card__item_selected' : ''}`}
+      onClick={() => onCardClick(itemId)}
+    >
       <span
         className="card__item-select-block"
         onClick={e => {

@@ -9,6 +9,7 @@ import { RootState } from '../../redux/store';
 import { LS_QUERY } from '../../constants';
 import { useGetAllCardsQuery } from '../../redux/services/CardService';
 import { ICharacter } from '../../types/AppTypes';
+import { AppDispatch } from '../../redux/store';
 
 const Results = () => {
   const query = localStorage.getItem(LS_QUERY) || '';
@@ -17,13 +18,15 @@ const Results = () => {
   const cards: ICharacter[] = data.results;
 
   const { theme } = useContext(ThemeContext);
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
+  console.log(cards);
 
   useEffect(() => {
     if (cards.length > 0) {
       dispatch(setCards(cards));
+      console.log('first');
     }
-  }, [cards]);
+  }, [cards, query, currentPage]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading cards</div>;

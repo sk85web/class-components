@@ -26,8 +26,12 @@
 }
 
 .card__item:hover {
-  transform: scale(1.05);
+  transform: scale(1.01);
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+.card__item_selected {
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.9);
 }
 
 .card__title {
