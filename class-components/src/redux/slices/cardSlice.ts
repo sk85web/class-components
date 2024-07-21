@@ -21,15 +21,20 @@ export const cardSlice = createSlice({
     setCardId: (state, action: PayloadAction<string | null>) => {
       state.cardId = action.payload;
     },
-    setSelectedCards: (state, action: PayloadAction<ICharacter>) => {
-      const existingCardIndex = state.selectedCards.findIndex(
-        ({ name }) => action.payload.name === name,
-      );
-
-      if (existingCardIndex !== -1) {
-        state.selectedCards.splice(existingCardIndex, 1);
+    setSelectedCards: (state, action: PayloadAction<ICharacter | ICharacter[]>) => {
+      if (Array.isArray(action.payload)) {
+        state.selectedCards = action.payload;
       } else {
-        state.selectedCards.push(action.payload);
+        const newCard = action.payload;
+        const existingCardIndex = state.selectedCards.findIndex(
+          ({ name }) => newCard.name === name,
+        );
+
+        if (existingCardIndex !== -1) {
+          state.selectedCards.splice(existingCardIndex, 1);
+        } else {
+          state.selectedCards.push(action.payload);
+        }
       }
     },
     setCards: (state, action: PayloadAction<ICharacter[]>) => {

@@ -19,12 +19,10 @@ const Results = () => {
 
   const { theme } = useContext(ThemeContext);
   const dispatch: AppDispatch = useDispatch();
-  console.log(cards);
 
   useEffect(() => {
     if (cards.length > 0) {
       dispatch(setCards(cards));
-      console.log('first');
     }
   }, [cards, query, currentPage]);
 

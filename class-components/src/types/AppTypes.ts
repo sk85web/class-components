@@ -52,3 +52,8 @@ export interface IThemeContext {
   theme: string;
   setTheme: Dispatch<SetStateAction<string>>;
 }
+
+export interface IFlayoutBtnProps {
+  text: string;
+  onClick: () => void;
+}

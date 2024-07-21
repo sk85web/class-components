@@ -1,0 +1,33 @@
+.flayout {
+  position: relative;
+}
+
+.flayout-wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  border-radius: 10px;
+
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 16px;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+  opacity: 0;
+  transform: translateY(100%);
+  padding: 10px;
+  pointer-events: none;
+}
+
+.flayout-wrapper.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.flayout__btns {
+  display: flex;
+  gap: 25px;
+  margin-top: 20px;
+}

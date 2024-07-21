@@ -27,8 +27,6 @@ const Pagination = () => {
     navigate(`?page=${page}`);
   };
 
-  console.log('Pagination cards', data.results);
-
   const handleFirstPage = () => handlePageChange(1);
   const handleLastPage = () => handlePageChange(total);
   const handlePrevPage = () => handlePageChange(currentPage - 1);

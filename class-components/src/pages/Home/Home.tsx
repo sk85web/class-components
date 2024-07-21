@@ -11,6 +11,7 @@ import { ThemeContext } from '../../App';
 import { setCardId } from '../../redux/slices/cardSlice';
 import { useGetAllCardsQuery } from '../../redux/services/CardService';
 import { AppDispatch, RootState } from '../../redux/store';
+import FlayoutMenu from '../../components/FlayoutMenu/FlayoutMenu';
 
 const Home = () => {
   const { theme } = useContext(ThemeContext);
@@ -18,7 +19,7 @@ const Home = () => {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const { cardId } = useSelector((state: RootState) => state.card);
+  const { cardId, selectedCards } = useSelector((state: RootState) => state.card);
   const { hasError, currentPage } = useSelector((state: RootState) => state.ui);
 
   const query = localStorage.getItem(LS_QUERY) || '';
@@ -51,6 +52,7 @@ const Home = () => {
             <Results />
           )}
           {!isLoading && <Pagination />}
+          {selectedCards && <FlayoutMenu />}
         </div>
         {cardId && <DetailCardInfo />}
       </div>

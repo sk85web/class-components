@@ -61,7 +61,7 @@ const Search = () => {
         onKeyDown={onKeyDown}
         className={'search-input ' + `theme-${theme}`}
       />
-      <button className={`search_${theme}`} type="button" onClick={() => handleSearch()}>
+      <button className={`theme-${theme}`} type="button" onClick={() => handleSearch()}>
         Search
       </button>
     </div>

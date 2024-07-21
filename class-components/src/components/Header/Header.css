@@ -50,3 +50,13 @@
       0 0 15px #ffd700;
   }
 }
+
+@media screen and (max-width: 780px) {
+  .header__title {
+    font-size: 3rem;
+  }
+
+  .search-field {
+    flex-direction: column;
+  }
+}
