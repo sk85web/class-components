@@ -1,21 +1,25 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import Results from '../Results';
-import { IResultsProps, ICharacter } from '../../../types/AppTypes';
+import { ICharacter } from '../../../types/AppTypes';
 import '@testing-library/jest-dom';
+// import { BrowserRouter as Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from '../../../redux/store';
 
 const mockNavigate = vi.fn();
 vi.mock('react-router-dom', () => ({
   useNavigate: () => mockNavigate,
 }));
 
-const renderResults = (props: Partial<IResultsProps> = {}) => {
-  const defaultProps: IResultsProps = {
-    results: [],
-    currentPage: 1,
-    onItemClick: vi.fn(),
-  };
-  return render(<Results {...defaultProps} {...props} />);
+const renderResults = () => {
+  return render(
+    <Provider store={store}>
+      {/* <Router> */}
+      <Results />
+      {/* </Router> */}
+    </Provider>,
+  );
 };
 
 describe('Results component', () => {
@@ -59,7 +63,7 @@ describe('Results component', () => {
       },
     ];
 
-    renderResults({ results });
+    renderResults();
 
     const cards = screen.getAllByRole('heading', { level: 2 });
     expect(cards).toHaveLength(results.length);
