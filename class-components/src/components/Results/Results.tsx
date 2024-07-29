@@ -15,7 +15,7 @@ const Results = () => {
   const query = localStorage.getItem(LS_QUERY) || '';
   const { currentPage } = useSelector((state: RootState) => state.ui);
   const { data, isLoading, error } = useGetAllCardsQuery({ query, currentPage });
-  const cards: ICharacter[] = data.results;
+  const cards: ICharacter[] = data?.results || [];
 
   const { theme } = useContext(ThemeContext);
   const dispatch: AppDispatch = useDispatch();
