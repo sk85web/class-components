@@ -38,6 +38,8 @@ const DetailCardInfo = () => {
     navigate('/');
   };
 
+  const imageId = detailInfo.url.split('/')[5];
+
   return (
     <div className="detail-card-info">
       <div className="detail-card-info-close">
@@ -48,7 +50,7 @@ const DetailCardInfo = () => {
       <div className="detail-header">
         <img
           className="detail-info-img"
-          src={`https://starwars-visualguide.com/assets/img/characters/${detailInfo.url.split('/')[5]}.jpg`}
+          src={`https://starwars-visualguide.com/assets/img/characters/${imageId}.jpg`}
           alt={detailInfo.name}
         />
         <h2 className="detail-info-name">{detailInfo.name}</h2>
