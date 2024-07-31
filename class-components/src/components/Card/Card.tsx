@@ -35,6 +35,7 @@ const Card: React.FC<ICardProps> = ({ card }) => {
 
   return (
     <div
+      data-testid="card-item"
       className={`card__item card__item_${theme} ${isSelected ? ' card__item_selected' : ''}`}
       onClick={() => onCardClick(itemId)}
     >
