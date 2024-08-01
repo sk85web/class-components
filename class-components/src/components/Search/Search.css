@@ -1,0 +1,13 @@
+.search {
+  display: flex;
+  gap: 20px;
+  font-size: 18px;
+  flex-grow: 1;
+}
+
+.search-input {
+  font-size: 18px;
+  padding: 0 5px;
+  outline: none;
+  flex-grow: 2;
+}
