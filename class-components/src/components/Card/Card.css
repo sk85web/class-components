@@ -9,16 +9,18 @@
   padding: 5px;
   display: flex;
   flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .card__item_dark {
   color: #fff;
-  background: url('../../assets/bg.png') no-repeat;
+  background: url('../../../public/bg.png') no-repeat;
 }
 
 .card__item_light {
   color: #000;
-  background: url('../../assets/bg-light.png') no-repeat;
+  background: url('../../../public/bg-light.png') no-repeat;
 }
 
 .card__item_light .card__description {
@@ -41,6 +43,12 @@
   max-width: 100%;
 }
 
+.card__content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
 .card__description {
   margin: 10px 0;
 }
@@ -56,6 +64,7 @@
   max-height: 200px;
   object-fit: cover;
   border-radius: 5px;
+  margin-top: auto;
 }
 
 .title_dark {

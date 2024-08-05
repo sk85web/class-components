@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 
 export const useLocalStorageQuery = (localStorageKey: string) => {
-  const storedQuery = localStorage.getItem(localStorageKey);
-  const [query, setQuery] = useState(() => storedQuery || '');
+  const [query, setQuery] = useState<string>('');
 
   useEffect(() => {
-    if (storedQuery) {
-      setQuery(storedQuery);
+    if (typeof window !== 'undefined') {
+      const storedQuery = localStorage.getItem(localStorageKey);
+      if (storedQuery) {
+        setQuery(storedQuery);
+      }
     }
   }, [localStorageKey]);
 

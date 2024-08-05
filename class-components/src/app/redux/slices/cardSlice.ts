@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { ICharacter } from '../../types/AppTypes';
+import { ICharacter } from '../../../types/AppTypes';
 
 interface ICardState {
   cardId: string | null;

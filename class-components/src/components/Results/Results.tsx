@@ -1,38 +1,56 @@
-import { useContext, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+'use client';
 
+import { useEffect, useContext } from 'react';
+import Link from 'next/link';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { RootState } from '../../app/redux/store';
 import './Results.css';
-import Card from '../Card/Card';
-import { ThemeContext } from '../../App';
-import { setCards } from '../../redux/slices/cardSlice';
-import { RootState } from '../../redux/store';
 import { LS_QUERY } from '../../constants';
-import { useGetAllCardsQuery } from '../../redux/services/CardService';
 import { ICharacter } from '../../types/AppTypes';
-import { AppDispatch } from '../../redux/store';
+import Card from '../Card/Card';
+import { useGetAllCardsQuery } from '../../app/redux/services/CardService';
+import { ThemeContext } from '../../app/layout';
+import { setCards } from '../../app/redux/slices/cardSlice';
+import { AppDispatch } from '../../app/redux/store';
 
 const Results = () => {
-  const query = localStorage.getItem(LS_QUERY) || '';
   const { currentPage } = useSelector((state: RootState) => state.ui);
-  const { data, isLoading, error } = useGetAllCardsQuery({ query, currentPage });
-  const cards: ICharacter[] = data?.results || [];
-
   const { theme } = useContext(ThemeContext);
   const dispatch: AppDispatch = useDispatch();
+
+  let storedValue = '';
+
+  if (typeof window !== 'undefined') {
+    storedValue = localStorage.getItem(LS_QUERY) || '';
+  }
+
+  const { data, isLoading, error } = useGetAllCardsQuery({
+    query: storedValue,
+    currentPage,
+  });
+
+  const cards: ICharacter[] = data?.results || [];
 
   useEffect(() => {
     if (cards.length > 0) {
       dispatch(setCards(cards));
     }
-  }, [cards, query, currentPage]);
+  }, [cards, currentPage, dispatch]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading cards</div>;
 
-  return cards.length ? (
+  return cards.length && !isLoading ? (
     <div className="result">
       {cards.map(card => (
-        <Card key={card.name} card={card} />
+        <Link
+          className="card-link"
+          key={card.name}
+          href={`/?frontpage=${currentPage}&details=${card.name}`}
+        >
+          <Card card={card} />
+        </Link>
       ))}
     </div>
   ) : (

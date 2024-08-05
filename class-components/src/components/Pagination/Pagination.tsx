@@ -1,30 +1,33 @@
+'use client';
+
 import { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 
 import './Pagination.css';
-import { ThemeContext } from '../../App';
-import { AppDispatch, RootState } from '../../redux/store';
-import { CARDS_ON_PAGE } from '../../constants';
-import { setCurrentPage } from '../../redux/slices/uiSlice';
-import { LS_QUERY } from '../../constants';
+import { ThemeContext } from '../../app/layout';
+import { AppDispatch, RootState } from '../../app/redux/store';
+import { CARDS_ON_PAGE, LS_QUERY } from '../../constants';
+import { setCurrentPage } from '../../app/redux/slices/uiSlice';
 
-import { useGetAllCardsQuery } from '../../redux/services/CardService';
+import { useGetAllCardsQuery } from '../../app/redux/services/CardService';
 
 const Pagination = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { theme } = useContext(ThemeContext);
   const { currentPage } = useSelector((state: RootState) => state.ui);
-
   const dispatch: AppDispatch = useDispatch();
-  const query = localStorage.getItem(LS_QUERY) || '';
-  const { data, isLoading } = useGetAllCardsQuery({ query, currentPage });
+
+  let storedValue = '';
+  if (typeof window !== 'undefined') {
+    storedValue = localStorage.getItem(LS_QUERY) || '';
+  }
+  const { data, isLoading } = useGetAllCardsQuery({ query: storedValue, currentPage });
 
   const total = data ? Math.ceil(data.count / CARDS_ON_PAGE) : 0;
-
   const handlePageChange = (page: number) => {
     dispatch(setCurrentPage(page));
-    navigate(`?page=${page}`);
+    router.push(`?page=${page}`);
   };
 
   const handleFirstPage = () => handlePageChange(1);

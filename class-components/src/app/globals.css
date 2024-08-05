@@ -1,0 +1,53 @@
+#root {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
+}
+
+body {
+  background: url('../../public/bg.png') no-repeat;
+  background-size: cover;
+  box-sizing: border-box;
+  min-height: 100vh;
+  height: 100%;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  gap: 10px;
+}
+
+.results-field {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 50px 0 0;
+  min-width: 50%
+}
+
+.dark {
+  background-color: rgba(51, 51, 51, 0.7);
+}
+
+.light {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.theme-dark {
+  background-color: #333;
+  color: #fff;
+}
+.theme-light {
+  background-color: #fff;
+  color: #000;
+}

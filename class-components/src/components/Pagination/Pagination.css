@@ -30,7 +30,7 @@
 
 .page-button:hover:not(.active),
 .nav-button:hover:not(:disabled) {
-  background-color: #e0e0e0;
+  background-color: rgb(9, 67, 67);
 }
 
 .page-theme_dark {

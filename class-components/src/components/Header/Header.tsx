@@ -1,11 +1,16 @@
-import Search from '../Search/Search';
+'use client';
 
-import './Header.css';
 import { useContext } from 'react';
-import { ThemeContext } from '../../App';
-import ThemeBtn from '../UI/ThemeBtn/ThemeBtn';
 import { useDispatch } from 'react-redux';
-import { setHasError } from '../../redux/slices/uiSlice';
+import { Russo_One } from 'next/font/google';
+
+import Search from '../Search/Search';
+import ThemeBtn from '../../app/UI/ThemeBtn/ThemeBtn';
+import './Header.css';
+import { ThemeContext } from '../../app/layout';
+import { setHasError } from '../../app/redux/slices/uiSlice';
+
+const russo = Russo_One({ subsets: ['latin'], weight: '400' });
 
 const Header = () => {
   const { theme } = useContext(ThemeContext);
@@ -17,10 +22,16 @@ const Header = () => {
 
   return (
     <div>
-      <h1 className={`header__title header__title_${theme}`}>Star Wars World</h1>
+      <h1 className={`${russo.className} header__title header__title_${theme}`}>
+        Star Wars World
+      </h1>
       <div className="search-field">
         <Search />
-        <button type="button" className={`theme-${theme}`} onClick={simulateError}>
+        <button
+          type="button"
+          onClick={simulateError}
+          className={`theme-${theme} error-btn`}
+        >
           Throw Error
         </button>
         <ThemeBtn />

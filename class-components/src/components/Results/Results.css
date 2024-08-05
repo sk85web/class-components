@@ -6,3 +6,8 @@
   overflow: hidden;
   padding: 10px;
 }
+
+.card-link {
+  text-decoration: none;
+  color: #000
+}

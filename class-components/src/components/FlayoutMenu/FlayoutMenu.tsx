@@ -1,12 +1,14 @@
-import { useDispatch, useSelector } from 'react-redux';
+'use client';
 
-import { AppDispatch, RootState } from '../../redux/store';
-import FlayoutBtn from '../UI/FlayoutBtn/FlayoutBtn';
-import { setSelectedCards } from '../../redux/slices/cardSlice';
-import './FlayoutMenu.css';
+import { useDispatch, useSelector } from 'react-redux';
 import { useContext, useState, useEffect } from 'react';
-import { ThemeContext } from '../../App';
 import { saveAs } from 'file-saver';
+
+import { AppDispatch, RootState } from '../../app/redux/store';
+import FlayoutBtn from '../../app/UI/FlayoutBtn/FlayoutBtn';
+import { setSelectedCards } from '../../app/redux/slices/cardSlice';
+import './FlayoutMenu.css';
+import { ThemeContext } from '../../app/layout';
 
 const FlayoutMenu = () => {
   const { theme } = useContext(ThemeContext);

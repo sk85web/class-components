@@ -1,3 +1,5 @@
+'use client'
+
 import { configureStore } from '@reduxjs/toolkit';
 import searchReducer from './slices/searchSlice';
 import cardReducer from './slices/cardSlice';

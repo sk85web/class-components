@@ -1,19 +1,21 @@
 import { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 import './DetailCardInfo.css';
-import { ThemeContext } from '../../App';
-import { setCardId } from '../../redux/slices/cardSlice';
-import { RootState } from '../../redux/store';
-import { useGetCardByIdQuery } from '../../redux/services/CardService';
+import { ThemeContext } from '../../app/layout';
+import { setCardId } from '../../app/redux/slices/cardSlice';
+import { RootState } from '../../app/redux/store';
+import { useGetCardByIdQuery } from '../../app/redux/services/CardService';
 
 const DetailCardInfo = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const { theme } = useContext(ThemeContext);
   const { cardId } = useSelector((state: RootState) => state.card);
+  const { currentPage } = useSelector((state: RootState) => state.ui);
 
   const { data: detailInfo, isLoading, error } = useGetCardByIdQuery(cardId);
 
@@ -35,7 +37,7 @@ const DetailCardInfo = () => {
 
   const onClose = () => {
     dispatch(setCardId(null));
-    navigate('/');
+    router.push(`?page=${currentPage}`);
   };
 
   const imageId = detailInfo.url.split('/')[5];
@@ -48,10 +50,11 @@ const DetailCardInfo = () => {
         </button>
       </div>
       <div className="detail-header">
-        <img
-          className="detail-info-img"
+        <Image
           src={`https://starwars-visualguide.com/assets/img/characters/${imageId}.jpg`}
           alt={detailInfo.name}
+          width={500}
+          height={500}
         />
         <h2 className="detail-info-name">{detailInfo.name}</h2>
       </div>

@@ -1,19 +1,20 @@
+'use client';
 import { useDispatch, useSelector } from 'react-redux';
-import { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { useRouter } from 'next/navigation';
 
 import './Search.css';
 import { LS_QUERY } from '../../constants';
-import { useLocalStorageQuery } from '../../hooks/useLocalStorageQuery';
-import { ThemeContext } from '../../App';
-import { AppDispatch, RootState } from '../../redux/store';
-import { setCurrentPage } from '../../redux/slices/uiSlice';
-import { useNavigate } from 'react-router-dom';
-import { useGetAllCardsQuery } from '../../redux/services/CardService';
-import { setCards } from '../../redux/slices/cardSlice';
+import { useLocalStorageQuery } from '../../app/hooks/useLocalStorageQuery';
+import { ThemeContext } from '../../app/layout';
+import { AppDispatch, RootState } from '../../app/redux/store';
+import { setCurrentPage } from '../../app/redux/slices/uiSlice';
+import { useGetAllCardsQuery } from '../../app/redux/services/CardService';
+import { setCards } from '../../app/redux/slices/cardSlice';
 
 const Search = () => {
   const { theme } = useContext(ThemeContext);
-  const navigate = useNavigate();
+  const router = useRouter();
   const dispatch: AppDispatch = useDispatch();
 
   const { currentPage } = useSelector((state: RootState) => state.ui);
@@ -27,7 +28,7 @@ const Search = () => {
     if (data) {
       dispatch(setCards(data.results));
     }
-  }, [data]);
+  }, [data, dispatch]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -35,10 +36,10 @@ const Search = () => {
   };
 
   const handleSearch = () => {
-    const normalizedQuery = tempQuery.trim();
+    const normalizedQuery = tempQuery?.trim();
     setQuery(normalizedQuery);
     dispatch(setCurrentPage(1));
-    navigate(`?search=${normalizedQuery}&page=${currentPage}`);
+    router.push(`?search=${normalizedQuery}&page=${currentPage}`);
   };
 
   if (error) {
@@ -55,13 +56,17 @@ const Search = () => {
     <div className="search">
       <input
         type="text"
-        value={tempQuery}
+        value={tempQuery || ''}
         onChange={handleChange}
         placeholder="Search..."
         onKeyDown={onKeyDown}
         className={'search-input ' + `theme-${theme}`}
       />
-      <button className={`theme-${theme}`} type="button" onClick={() => handleSearch()}>
+      <button
+        type="button"
+        onClick={handleSearch}
+        className={`theme-${theme} search-btn`}
+      >
         Search
       </button>
     </div>

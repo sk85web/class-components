@@ -1,3 +1,5 @@
+'use client'
+
 import { Component, ErrorInfo } from 'react';
 
 import { IErrorProps, IErrorState } from '../../types/AppTypes';

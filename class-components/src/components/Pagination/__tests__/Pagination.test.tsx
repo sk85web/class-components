@@ -4,9 +4,9 @@ import Pagination from '../Pagination';
 import { describe, it, expect, vi } from 'vitest';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { store } from '../../../redux/store';
+import { store } from '../../../app/redux/store';
 import * as reduxHooks from 'react-redux';
-import * as actions from '../../../redux/slices/uiSlice';
+import * as actions from '../../../app/redux/slices/uiSlice';
 
 // import { cardAPI } from '../../../redux/services/CardService';
 import { beforeEach } from 'node:test';

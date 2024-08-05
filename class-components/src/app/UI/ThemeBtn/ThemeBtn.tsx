@@ -1,6 +1,9 @@
+'use client';
+
 import { useContext, useState } from 'react';
+
 import './ThemeBtn.css';
-import { ThemeContext } from '../../../App';
+import { ThemeContext } from '../../layout';
 import { THEMES } from '../../../constants';
 
 const ThemeBtn = () => {

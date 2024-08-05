@@ -4,7 +4,7 @@
   font-weight: 400;
   text-transform: uppercase;
   animation: burn 1s infinite alternate;
-  font-family: 'Russo One', sans-serif;
+  font-family: 'Russo_One', sans-serif;
 }
 
 .header__title_dark {
@@ -15,6 +15,18 @@
 .header__title_light {
   color: #ff5733;
   animation: burn-light 1s infinite alternate;
+}
+
+.error-btn {
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 10px 5px;
+  font-size: 18px;
+  transition: all.2s linear;
+}
+
+.error-btn:hover {
+  background-color: rgb(40, 122, 122);
 }
 
 @keyframes burn-dark {
