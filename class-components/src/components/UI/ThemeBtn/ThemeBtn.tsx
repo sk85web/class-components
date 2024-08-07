@@ -3,7 +3,7 @@
 import { useContext, useState } from 'react';
 
 import './ThemeBtn.css';
-import { ThemeContext } from '../../layout';
+import { ThemeContext } from '../../../app/layout';
 import { THEMES } from '../../../constants';
 
 const ThemeBtn = () => {

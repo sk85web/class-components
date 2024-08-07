@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 
 import './Search.css';
 import { LS_QUERY } from '../../constants';
-import { useLocalStorageQuery } from '../../app/hooks/useLocalStorageQuery';
+import { useLocalStorageQuery } from '../../hooks/useLocalStorageQuery';
 import { ThemeContext } from '../../app/layout';
 import { AppDispatch, RootState } from '../../app/redux/store';
 import { setCurrentPage } from '../../app/redux/slices/uiSlice';

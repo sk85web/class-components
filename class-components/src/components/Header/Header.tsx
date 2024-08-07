@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { Russo_One } from 'next/font/google';
 
 import Search from '../Search/Search';
-import ThemeBtn from '../../app/UI/ThemeBtn/ThemeBtn';
+import ThemeBtn from '../UI/ThemeBtn/ThemeBtn';
 import './Header.css';
 import { ThemeContext } from '../../app/layout';
 import { setHasError } from '../../app/redux/slices/uiSlice';

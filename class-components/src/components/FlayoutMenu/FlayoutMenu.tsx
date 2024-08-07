@@ -5,7 +5,7 @@ import { useContext, useState, useEffect } from 'react';
 import { saveAs } from 'file-saver';
 
 import { AppDispatch, RootState } from '../../app/redux/store';
-import FlayoutBtn from '../../app/UI/FlayoutBtn/FlayoutBtn';
+import FlayoutBtn from '../UI/FlayoutBtn/FlayoutBtn';
 import { setSelectedCards } from '../../app/redux/slices/cardSlice';
 import './FlayoutMenu.css';
 import { ThemeContext } from '../../app/layout';

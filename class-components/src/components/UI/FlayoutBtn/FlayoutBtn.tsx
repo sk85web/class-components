@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import './FlayoutBtn.css';
-import { ThemeContext } from '../../layout';
+import { ThemeContext } from '../../../app/layout';
 import { IFlayoutBtnProps } from '../../../types/AppTypes';
 
 const FlayoutBtn: React.FC<IFlayoutBtnProps> = ({ text, onClick }) => {

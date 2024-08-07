@@ -29,18 +29,20 @@ const Home = () => {
   return (
     <div className="app">
       <Header />
-      <div className="content">
-        <div
-          className="results-field"
-          ref={resultsFieldRef}
-          onClick={handleResultsFieldClick}
-        >
-          <Results />
-          <Pagination />
-          {selectedCards && <FlayoutMenu />}
+      {
+        <div className="content">
+          <div
+            className="results-field"
+            ref={resultsFieldRef}
+            onClick={handleResultsFieldClick}
+          >
+            <Results />
+            <Pagination />
+            {selectedCards && <FlayoutMenu />}
+          </div>
+          {cardId && <DetailCardInfo />}
         </div>
-        {cardId && <DetailCardInfo />}
-      </div>
+      }
     </div>
   );
 };
