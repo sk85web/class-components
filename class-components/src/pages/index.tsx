@@ -35,7 +35,7 @@ const Home = () => {
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
-      <div className="app">
+      <div className={`app ${theme === THEMES.LIGHT ? 'light' : 'dark'}`}>
         <Header />
         {
           <div className="content">

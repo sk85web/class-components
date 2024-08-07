@@ -1,9 +1,9 @@
-'use client'
+'use client';
 
 import { Component, ErrorInfo } from 'react';
 
 import { IErrorProps, IErrorState } from '../../types/AppTypes';
-import './ErrorBoundary.css';
+import styles from './ErrorBoundary.module.css';
 
 class ErrorBoundary extends Component<IErrorProps, IErrorState> {
   constructor(props: IErrorProps) {
@@ -26,7 +26,7 @@ class ErrorBoundary extends Component<IErrorProps, IErrorState> {
         <div>
           <h1>Something went wrong.</h1>
           <button
-            className="reload-btn"
+            className={styles['reload-btn']}
             type="button"
             onClick={() => window.location.reload()}
           >

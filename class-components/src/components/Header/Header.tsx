@@ -18,6 +18,7 @@ const Header = () => {
 
   const simulateError = () => {
     dispatch(setHasError(true));
+    throw new Error('This is a simulated error');
   };
 
   return (
