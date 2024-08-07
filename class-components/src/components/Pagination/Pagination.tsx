@@ -4,13 +4,13 @@ import { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 
-import './Pagination.css';
-import { ThemeContext } from '../../app/layout';
-import { AppDispatch, RootState } from '../../app/redux/store';
+import styles from './Pagination.module.css';
+import { ThemeContext } from '../../pages';
+import { AppDispatch, RootState } from '../../redux/store';
 import { CARDS_ON_PAGE, LS_QUERY } from '../../constants';
-import { setCurrentPage } from '../../app/redux/slices/uiSlice';
+import { setCurrentPage } from '../../redux/slices/uiSlice';
 
-import { useGetAllCardsQuery } from '../../app/redux/services/CardService';
+import { useGetAllCardsQuery } from '../../redux/services/CardService';
 
 const Pagination = () => {
   const router = useRouter();
@@ -42,7 +42,7 @@ const Pagination = () => {
         <button
           type="button"
           key={i}
-          className={`page-button theme-${theme} ${i === currentPage ? 'active' : ''}`}
+          className={`${styles['page-button']} theme-${theme} ${i === currentPage ? styles.active : ''}`}
           onClick={() => handlePageChange(i)}
         >
           {i}
@@ -53,10 +53,10 @@ const Pagination = () => {
   };
 
   return (
-    <div className="pagination">
+    <div className={styles.pagination}>
       <button
         type="button"
-        className={`nav-button theme-${theme}`}
+        className={`${styles['nav-button']} theme-${theme}`}
         onClick={handleFirstPage}
         disabled={currentPage === 1 || isLoading}
       >
@@ -64,7 +64,7 @@ const Pagination = () => {
       </button>
       <button
         type="button"
-        className={`nav-button theme-${theme}`}
+        className={`${styles['nav-button']} theme-${theme}`}
         onClick={handlePrevPage}
         disabled={currentPage === 1 || isLoading}
       >
@@ -73,7 +73,7 @@ const Pagination = () => {
       {renderPageNumbers()}
       <button
         type="button"
-        className={`nav-button theme-${theme}`}
+        className={`${styles['nav-button']} theme-${theme}`}
         onClick={handleNextPage}
         disabled={currentPage === total || isLoading}
       >
@@ -81,7 +81,7 @@ const Pagination = () => {
       </button>
       <button
         type="button"
-        className={`nav-button theme-${theme}`}
+        className={`${styles['nav-button']} theme-${theme}`}
         onClick={handleLastPage}
         disabled={currentPage === total || isLoading}
       >

@@ -4,15 +4,15 @@ import { useEffect, useContext } from 'react';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { RootState } from '../../app/redux/store';
-import './Results.css';
+import { RootState } from '../../redux/store';
+import styles from './Results.module.css';
 import { LS_QUERY } from '../../constants';
 import { ICharacter } from '../../types/AppTypes';
 import Card from '../Card/Card';
-import { useGetAllCardsQuery } from '../../app/redux/services/CardService';
-import { ThemeContext } from '../../app/layout';
-import { setCards } from '../../app/redux/slices/cardSlice';
-import { AppDispatch } from '../../app/redux/store';
+import { useGetAllCardsQuery } from '../../redux/services/CardService';
+import { ThemeContext } from '../../pages';
+import { setCards } from '../../redux/slices/cardSlice';
+import { AppDispatch } from '../../redux/store';
 
 const Results = () => {
   const { currentPage } = useSelector((state: RootState) => state.ui);
@@ -42,10 +42,10 @@ const Results = () => {
   if (error) return <div>Error loading cards</div>;
 
   return cards.length && !isLoading ? (
-    <div className="result">
+    <div className={styles.result}>
       {cards.map(card => (
         <Link
-          className="card-link"
+          className={styles['card-link']}
           key={card.name}
           href={`/?frontpage=${currentPage}&details=${card.name}`}
         >
@@ -54,7 +54,7 @@ const Results = () => {
       ))}
     </div>
   ) : (
-    <h3 className={`title_${theme}`}>Nothing was founded</h3>
+    <h3 className={styles[`title_${theme}`]}>Nothing was founded</h3>
   );
 };
 

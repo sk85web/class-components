@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState, useContext } from 'react';
 import { useRouter } from 'next/navigation';
 
-import './Search.css';
+import styles from './Search.module.css';
 import { LS_QUERY } from '../../constants';
 import { useLocalStorageQuery } from '../../hooks/useLocalStorageQuery';
-import { ThemeContext } from '../../app/layout';
-import { AppDispatch, RootState } from '../../app/redux/store';
-import { setCurrentPage } from '../../app/redux/slices/uiSlice';
-import { useGetAllCardsQuery } from '../../app/redux/services/CardService';
-import { setCards } from '../../app/redux/slices/cardSlice';
+import { ThemeContext } from '../../pages';
+import { AppDispatch, RootState } from '../../redux/store';
+import { setCurrentPage } from '../../redux/slices/uiSlice';
+import { useGetAllCardsQuery } from '../../redux/services/CardService';
+import { setCards } from '../../redux/slices/cardSlice';
 
 const Search = () => {
   const { theme } = useContext(ThemeContext);
@@ -53,19 +53,19 @@ const Search = () => {
   };
 
   return (
-    <div className="search">
+    <div className={styles.search}>
       <input
         type="text"
         value={tempQuery || ''}
         onChange={handleChange}
         placeholder="Search..."
         onKeyDown={onKeyDown}
-        className={'search-input ' + `theme-${theme}`}
+        className={`${styles['search-input']} theme-${theme}`}
       />
       <button
         type="button"
         onClick={handleSearch}
-        className={`theme-${theme} search-btn`}
+        className={`theme-${theme} ${styles['search-btn']}`}
       >
         Search
       </button>

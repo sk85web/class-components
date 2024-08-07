@@ -6,9 +6,9 @@ import { Russo_One } from 'next/font/google';
 
 import Search from '../Search/Search';
 import ThemeBtn from '../UI/ThemeBtn/ThemeBtn';
-import './Header.css';
-import { ThemeContext } from '../../app/layout';
-import { setHasError } from '../../app/redux/slices/uiSlice';
+import styles from './Header.module.css';
+import { ThemeContext } from '../../pages';
+import { setHasError } from '../../redux/slices/uiSlice';
 
 const russo = Russo_One({ subsets: ['latin'], weight: '400' });
 
@@ -22,15 +22,17 @@ const Header = () => {
 
   return (
     <div>
-      <h1 className={`${russo.className} header__title header__title_${theme}`}>
+      <h1
+        className={`${russo.className} ${styles['header__title']} ${styles[`header__title_${theme}`]}`}
+      >
         Star Wars World
       </h1>
-      <div className="search-field">
+      <div className={styles['search-field']}>
         <Search />
         <button
           type="button"
           onClick={simulateError}
-          className={`theme-${theme} error-btn`}
+          className={`theme-${theme} ${styles['error-btn']}`}
         >
           Throw Error
         </button>

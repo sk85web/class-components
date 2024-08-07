@@ -2,8 +2,8 @@
 
 import { useContext, useState } from 'react';
 
-import './ThemeBtn.css';
-import { ThemeContext } from '../../../app/layout';
+import styles from './ThemeBtn.module.css';
+import { ThemeContext } from '../../../pages';
 import { THEMES } from '../../../constants';
 
 const ThemeBtn = () => {
@@ -17,20 +17,20 @@ const ThemeBtn = () => {
   };
 
   return (
-    <div className="theme-switch-container">
+    <div className={styles['theme-switch-container']}>
       <input
         type="checkbox"
-        className="theme-switch-checkbox"
+        className={styles['theme-switch-checkbox']}
         id="theme-switch"
         checked={isChecked}
         onChange={toggleTheme}
       />
-      <label className="theme-switch-label" htmlFor="theme-switch">
-        <div className="theme-icons-block">
-          <span className="theme-switch-icon">🌙</span>
-          <span className="theme-switch-icon">☀️</span>
+      <label className={styles['theme-switch-label']} htmlFor="theme-switch">
+        <div className={styles['theme-icons-block']}>
+          <span className={styles['theme-switch-icon']}>🌙</span>
+          <span className={styles['theme-switch-icon']}>☀️</span>
         </div>
-        <div className="theme-switch-ball"></div>
+        <div className={styles['theme-switch-ball']}></div>
       </label>
     </div>
   );

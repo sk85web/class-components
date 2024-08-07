@@ -4,13 +4,13 @@ import React, { useContext, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Image from 'next/image';
 
-import './Card.css';
+import styles from './Card.module.css';
 import { ICardProps, ICharacter } from '../../types/AppTypes';
-import { ThemeContext } from '../../app/layout';
-import { AppDispatch, RootState } from '../../app/redux/store';
-import { setCardId } from '../../app/redux/slices/cardSlice';
+import { ThemeContext } from '../../pages';
+import { AppDispatch, RootState } from '../../redux/store';
+import { setCardId } from '../../redux/slices/cardSlice';
 import HeartIcon from '../HeartIcon/HeartIcon';
-import { setSelectedCards } from '../../app/redux/slices/cardSlice';
+import { setSelectedCards } from '../../redux/slices/cardSlice';
 
 const Card: React.FC<ICardProps> = ({ card }) => {
   const { theme } = useContext(ThemeContext);
@@ -35,11 +35,11 @@ const Card: React.FC<ICardProps> = ({ card }) => {
   return (
     <div
       data-testid="card-item"
-      className={`card__item card__item_${theme} `}
+      className={`${styles['card__item']} ${styles[`card__item_${theme}`]}`}
       onClick={() => onCardClick(itemId)}
     >
       <span
-        className="card__item-select-block"
+        className={styles['card__item-select-block']}
         onClick={e => {
           e.preventDefault();
           e.stopPropagation();
@@ -48,14 +48,14 @@ const Card: React.FC<ICardProps> = ({ card }) => {
       >
         <HeartIcon isSelected={isSelected} />
       </span>
-      <h2 className="card__title">{card.name}</h2>
-      <div className="card__content">
-        <p className="card__description">
+      <h2 className={styles['card__item-select-block']}>{card.name}</h2>
+      <div className={styles['card__content']}>
+        <p className={styles['card__descripiton']}>
           Hi! My name is {card.name}. I was born in {card.birth_year} year. My gender is{' '}
           {card.gender}
         </p>
         <Image
-          className="card__item-img"
+          className={styles['card__item-img']}
           src={`https://starwars-visualguide.com/assets/img/characters/${itemId}.jpg`}
           alt={card.name}
           width={200}

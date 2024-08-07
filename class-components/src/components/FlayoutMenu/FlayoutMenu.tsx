@@ -1,17 +1,18 @@
 'use client';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { useContext, useState, useEffect } from 'react';
+// import { useContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { saveAs } from 'file-saver';
 
-import { AppDispatch, RootState } from '../../app/redux/store';
+import { AppDispatch, RootState } from '../../redux/store';
 import FlayoutBtn from '../UI/FlayoutBtn/FlayoutBtn';
-import { setSelectedCards } from '../../app/redux/slices/cardSlice';
-import './FlayoutMenu.css';
-import { ThemeContext } from '../../app/layout';
+import { setSelectedCards } from '../../redux/slices/cardSlice';
+import styles from './FlayoutMenu.module.css';
+// import { ThemeContext } from '../../app/layout';
 
 const FlayoutMenu = () => {
-  const { theme } = useContext(ThemeContext);
+  // const { theme } = useContext(ThemeContext);
   const { selectedCards } = useSelector((state: RootState) => state.card);
   const dispatch: AppDispatch = useDispatch();
   const [isVisible, setIsVisible] = useState(false);
@@ -51,14 +52,17 @@ const FlayoutMenu = () => {
   };
 
   return (
-    <div className="flayout">
-      <div className={`flayout-wrapper  theme-${theme} ${isVisible ? 'show' : ''}`}>
+    <div className={styles.flayout}>
+      {/* <div className={`flayout-wrapper  theme-${theme} ${isVisible ? 'show' : ''}`}> */}
+      <div
+        className={`${styles['flayout-wrapper']}  theme-dark ${isVisible ? styles.show : ''}`}
+      >
         <h2>
           {selectedCards.length === 1
             ? '1 hero is selected'
             : `${selectedCards.length} heroes are selected`}
         </h2>
-        <div className="flayout__btns">
+        <div className={styles['flayout__btns']}>
           <FlayoutBtn text="Unselect All" onClick={unSelect} />
           <FlayoutBtn text="Download" onClick={downLoad} />
         </div>

@@ -4,6 +4,10 @@
   justify-content: center;
 }
 
+.loading_dark {
+  color: #fff;
+}
+
 .detail-info-name {
   font-size: 3rem;
 }
@@ -23,7 +27,7 @@
 }
 
 .detail-header img {
-  height: auto; 
+  height: auto;
   width: 100%;
 }
 
