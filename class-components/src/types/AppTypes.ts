@@ -1,4 +1,4 @@
-import { ReactNode, Dispatch, SetStateAction } from 'react';
+import { ReactNode } from 'react';
 
 export interface ISearchState {
   query: string;
@@ -50,7 +50,7 @@ export interface IApiResponse {
 
 export interface IThemeContext {
   theme: string;
-  setTheme: Dispatch<SetStateAction<string>>;
+  setTheme: (theme: string) => void;
 }
 
 export interface IFlayoutBtnProps {
