@@ -1,10 +1,10 @@
-import { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
+import { ClipLoader } from 'react-spinners';
+
 import Image from 'next/image';
 
 import './DetailCardInfo.css';
-import { ThemeContext } from '../../app/layout';
 import { setCardId } from '../../app/redux/slices/cardSlice';
 import { RootState } from '../../app/redux/store';
 import { useGetCardByIdQuery } from '../../app/redux/services/CardService';
@@ -13,18 +13,13 @@ const DetailCardInfo = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const { theme } = useContext(ThemeContext);
   const { cardId } = useSelector((state: RootState) => state.card);
   const { currentPage } = useSelector((state: RootState) => state.ui);
 
   const { data: detailInfo, isLoading, error } = useGetCardByIdQuery(cardId);
 
   if (isLoading) {
-    return (
-      <div className={`loading loading_detail-info loading-${theme}`}>
-        Loading detail info...
-      </div>
-    );
+    return <ClipLoader color="#3498db" size={50} />;
   }
 
   if (error) {

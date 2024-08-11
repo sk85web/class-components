@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useContext } from 'react';
+import { useEffect } from 'react';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
+import { ClipLoader } from 'react-spinners';
 
 import { RootState } from '../../app/redux/store';
 import './Results.css';
@@ -10,13 +11,15 @@ import { LS_QUERY } from '../../constants';
 import { ICharacter } from '../../types/AppTypes';
 import Card from '../Card/Card';
 import { useGetAllCardsQuery } from '../../app/redux/services/CardService';
-import { ThemeContext } from '../../app/layout';
+// import { ThemeContext } from '../../app/layout';
 import { setCards } from '../../app/redux/slices/cardSlice';
 import { AppDispatch } from '../../app/redux/store';
+import { useTheme } from '../theme-provider';
 
 const Results = () => {
   const { currentPage } = useSelector((state: RootState) => state.ui);
-  const { theme } = useContext(ThemeContext);
+  // const { theme } = useContext(ThemeContext);
+  const theme = useTheme();
   const dispatch: AppDispatch = useDispatch();
 
   let storedValue = '';
@@ -38,7 +41,7 @@ const Results = () => {
     }
   }, [cards, currentPage, dispatch]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <ClipLoader color="#3498db" size={50} />;
   if (error) return <div>Error loading cards</div>;
 
   return cards.length && !isLoading ? (
