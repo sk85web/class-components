@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { THEMES } from '../constants';
 
 export interface ISearchState {
   query: string;
@@ -48,9 +49,11 @@ export interface IApiResponse {
   results: ICharacter[];
 }
 
+export type Theme = (typeof THEMES)[keyof typeof THEMES];
+
 export interface IThemeContext {
   theme: string;
-  setTheme: (theme: string) => void;
+  setTheme: (theme: Theme) => void;
 }
 
 export interface IFlayoutBtnProps {

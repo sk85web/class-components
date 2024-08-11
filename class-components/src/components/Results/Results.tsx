@@ -14,7 +14,7 @@ import { useGetAllCardsQuery } from '../../app/redux/services/CardService';
 // import { ThemeContext } from '../../app/layout';
 import { setCards } from '../../app/redux/slices/cardSlice';
 import { AppDispatch } from '../../app/redux/store';
-import { useTheme } from '../theme-provider';
+import { useTheme } from '../UI/ThemeBtn/theme-provider';
 
 const Results = () => {
   const { currentPage } = useSelector((state: RootState) => state.ui);

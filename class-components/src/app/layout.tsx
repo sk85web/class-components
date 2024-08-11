@@ -17,7 +17,7 @@ export const ThemeContext = createContext<IThemeContext>({
 });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState(THEMES.DARK);
+  const [theme, setTheme] = useState<(typeof THEMES)[keyof typeof THEMES]>(THEMES.DARK);
   useEffect(() => {
     const rootElement = document.getElementById('root');
     if (rootElement) {
