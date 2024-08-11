@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  distDir: './dist',
+  distDir: './next',
   images: {
     domains: ['starwars-visualguide.com'],
   },
@@ -10,3 +10,4 @@ const nextConfig = {
 };
 
 export default nextConfig;
+// module.exports = nextConfig;
