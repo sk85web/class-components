@@ -1,0 +1,4 @@
+[build]
+  base = "class-components/class-components" 
+  publish = "class-components/class-components/.next"  
+  command = "npm run build"  # Команда сборки
