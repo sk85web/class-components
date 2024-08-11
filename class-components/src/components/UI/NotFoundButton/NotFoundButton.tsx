@@ -1,22 +1,15 @@
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 import styles from './NotFoundButton.module.css';
 
 const NotFoundButton = () => {
-  const router = useRouter();
-  const handleToMainPage = () => {
-    router.push('/');
-  };
-
   return (
     <div>
-      <button
-        className={styles['not-found-btn']}
-        type="button"
-        onClick={handleToMainPage}
-      >
-        Back Main
-      </button>
+      <Link href={'/'}>
+        <button className={styles['not-found-btn']} type="button">
+          Back Main
+        </button>
+      </Link>
     </div>
   );
 };
