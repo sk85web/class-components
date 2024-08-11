@@ -1,0 +1,52 @@
+.loading_detail-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detail-info-name {
+  font-size: 3rem;
+}
+
+.detail-content {
+  font-size: 1.7rem;
+  text-align: center;
+}
+
+.detail-card-info {
+  height: 100%;
+  border: 2px solid #fff;
+  color: #fff;
+  padding: 15px 55px;
+  position: relative;
+  background: url('../../../public/bg-detail.png') no-repeat center;
+}
+
+.detail-header img {
+  height: auto; 
+  width: 100%;
+}
+
+.detail-card-info-close {
+  font-size: 3rem;
+  position: absolute;
+  right: 10px;
+  top: 0;
+}
+
+.detail-card-info-close button {
+  background-color: transparent;
+  padding: 0;
+  transition: all 0.2s linear;
+  color: #fff;
+  font-size: 25px;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.detail-card-info-close:hover button {
+  transform: scale(1.2);
+  outline: none;
+  border: none;
+}

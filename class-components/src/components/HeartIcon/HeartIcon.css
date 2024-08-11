@@ -1,0 +1,12 @@
+.heart-icon {
+  cursor: pointer;
+  display: inline-block;
+}
+
+.heart-icon svg {
+  display: block;
+}
+
+.heart-icon:hover svg path {
+  stroke: #20207f;
+}
