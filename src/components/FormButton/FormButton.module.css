@@ -1,0 +1,26 @@
+button {
+  margin-top: 20px;
+  color: #fff;
+  font-size: 18px;
+  text-transform: uppercase;
+  transition:
+    background-color 0.3s,
+    border 0.3s;
+  background-color: #007bff;
+  width: 40%;
+  margin: 0 auto;
+}
+
+button:hover:not(.btn-disabled) {
+  border: 1px solid #fff;
+}
+
+.btn-disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.btn-enabled {
+  background-color: #007bff;
+  cursor: pointer;
+}

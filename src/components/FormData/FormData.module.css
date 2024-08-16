@@ -1,18 +1,26 @@
 .form__item {
   width: 300px;
+  border: 1px solid #8c8c8c;
+  border-radius: 10px;
+  padding: 10px;
+  color: #fff;
+  transition: all 0.4s linear;
+}
+
+.form__item:hover {
+  transform: scale(1.01);
+  box-shadow: 15px 15px 8px 0px rgba(78, 23, 196, 0.2);
+}
+
+.form__item h2 {
+  border-bottom: 1px solid #8c8c8c;
 }
 
 .item__inner {
-  background-color: rgb(211, 211, 126);
   list-style: none;
   margin: 0;
   padding: 10px;
   text-align: left;
   font-size: 18px;
   border-radius: 10px;
-  transition: all 0.5s linear;
-}
-
-.item__inner:hover {
-  transform: scale(1.05);
 }

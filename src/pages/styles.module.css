@@ -2,6 +2,33 @@
   display: flex;
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   gap: 50px;
+}
+
+.page-title {
+  color: #fff;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.radio-container,
+.checkbox-container {
+  color: #fff;
+  display: flex;
+  gap: 20px;
+}
+
+.radio-container span {
+  margin-right: 30px;
+}
+
+.checkbox-container input {
+  width: auto;
+  margin-left: 20px;
 }
