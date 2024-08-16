@@ -1,15 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import controlFormSlice from './slices/controlFormSlice';
+import countrySlice from './slices/countrySlice';
 
 export const store = configureStore({
   reducer: {
     control: controlFormSlice,
+    countries: countrySlice,
   },
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

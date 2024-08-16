@@ -6,5 +6,10 @@ export interface FormValues {
   confirmPassword: string;
   gender: string;
   accept: boolean;
-  avatar: File | null;
+  avatar: File | string;
+  country: string;
+}
+
+export interface CountryTypes {
+  countries: { label: string; value: string }[];
 }

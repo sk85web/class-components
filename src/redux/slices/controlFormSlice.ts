@@ -10,7 +10,8 @@ const initialState: FormValues = {
   confirmPassword: '',
   gender: 'Your gender',
   accept: false,
-  avatar: null,
+  avatar: '',
+  country: '',
 };
 
 export const controlFormSlice = createSlice({
@@ -29,7 +30,7 @@ export const controlFormSlice = createSlice({
     setGender: (state, action: PayloadAction<string>) => {
       state.gender = action.payload;
     },
-    setAvatar: (state, action: PayloadAction<File | null>) => {
+    setAvatar: (state, action: PayloadAction<string>) => {
       state.avatar = action.payload;
     },
   },

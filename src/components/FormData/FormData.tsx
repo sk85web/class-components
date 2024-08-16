@@ -12,8 +12,6 @@ const FormData: React.FC<FormProps> = ({ formType }) => {
     (state: RootState) => state.control,
   );
 
-  const avatarUrl = avatar ? URL.createObjectURL(avatar) : '';
-
   return (
     <div className={styles.form__item}>
       <h2>{formType.toUpperCase()}</h2>
@@ -35,13 +33,13 @@ const FormData: React.FC<FormProps> = ({ formType }) => {
           {avatar ? (
             formType === 'controlForm' ? (
               <img
-                src={avatarUrl}
+                src={avatar}
                 alt="Avatar"
                 style={{ maxWidth: '100px', maxHeight: '100px' }}
               />
             ) : null
           ) : (
-            <p>Аватар не загружен</p>
+            <p>Avatar isn't dowload</p>
           )}
         </li>
       </ul>
