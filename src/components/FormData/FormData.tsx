@@ -19,7 +19,6 @@ const FormData: React.FC<FormProps> = ({ formType }) => {
     avatar,
     country,
   } = useSelector((state: RootState) => state.control);
-
   return (
     <div className={styles.form__item}>
       <h2>{formType.toUpperCase()}</h2>
@@ -46,7 +45,10 @@ const FormData: React.FC<FormProps> = ({ formType }) => {
           <pre>Gender: {formType === 'controlForm' ? gender : ''}</pre>
         </li>
         <li>
-          <pre>Acception Rules: {formType === 'controlForm' ? accept : ''}</pre>
+          <pre>
+            Acception Rules:{' '}
+            {formType === 'controlForm' ? accept.toString() : ''}
+          </pre>
         </li>
         <li>
           <pre>Avatar:</pre>
