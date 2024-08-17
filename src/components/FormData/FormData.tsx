@@ -18,54 +18,51 @@ const FormData: React.FC<FormProps> = ({ formType }) => {
     accept,
     avatar,
     country,
-  } = useSelector((state: RootState) => state.control);
+  } = useSelector((state: RootState) =>
+    formType === 'controlForm' ? state.control : state.uncontrol,
+  );
   return (
     <div className={styles.form__item}>
       <h2>{formType.toUpperCase()}</h2>
       <ul className={styles.item__inner}>
         <li>
-          <pre>Name: {formType === 'controlForm' ? username : ''}</pre>
+          <pre>Name: {username}</pre>
         </li>
         <li>
-          <pre>Age: {formType === 'controlForm' ? age : null}</pre>
+          <pre>Age: {age}</pre>
         </li>
         <li>
-          <pre>Email: {formType === 'controlForm' ? email : ''}</pre>
+          <pre>Email: {email}</pre>
         </li>
         <li>
-          <pre>Password: {formType === 'controlForm' ? password : ''}</pre>
-        </li>
-        <li>
-          <pre>
-            Confirm password:{' '}
-            {formType === 'controlForm' ? confirmPassword : ''}
-          </pre>
-        </li>
-        <li>
-          <pre>Gender: {formType === 'controlForm' ? gender : ''}</pre>
+          <pre>Password: {password}</pre>
         </li>
         <li>
           <pre>
-            Acception Rules:{' '}
-            {formType === 'controlForm' ? accept.toString() : ''}
+            Confirm password:
+            {confirmPassword}
           </pre>
+        </li>
+        <li>
+          <pre>Gender: {gender}</pre>
+        </li>
+        <li>
+          <pre>Acception Rules: {accept.toString()}</pre>
         </li>
         <li>
           <pre>Avatar:</pre>
           {avatar ? (
-            formType === 'controlForm' ? (
-              <img
-                src={avatar as string}
-                alt="Avatar"
-                style={{ maxWidth: '100px', maxHeight: '100px' }}
-              />
-            ) : null
+            <img
+              src={avatar as string}
+              alt="Avatar"
+              style={{ maxWidth: '100px', maxHeight: '100px' }}
+            />
           ) : (
             <p>Avatar isn't dowload</p>
           )}
         </li>
         <li>
-          <pre>Country: {formType === 'controlForm' ? country : ''}</pre>
+          <pre>Country: {country}</pre>
         </li>
       </ul>
     </div>

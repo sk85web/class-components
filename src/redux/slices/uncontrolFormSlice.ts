@@ -14,8 +14,8 @@ const initialState: FormValues = {
   country: '',
 };
 
-export const controlFormSlice = createSlice({
-  name: 'controlForm',
+export const uncontrolFormSlice = createSlice({
+  name: 'uncontrolForm',
   initialState,
   reducers: {
     setName: (state, action: PayloadAction<string>) => {
@@ -58,6 +58,6 @@ export const {
   setAccept,
   setAvatar,
   setCountry,
-} = controlFormSlice.actions;
+} = uncontrolFormSlice.actions;
 
-export default controlFormSlice.reducer;
+export default uncontrolFormSlice.reducer;
