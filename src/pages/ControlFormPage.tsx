@@ -23,6 +23,9 @@ import convertFileToBase64 from '../utils/convertFileToBase64';
 import { useSelector } from 'react-redux';
 import { selectCountries } from '../redux/slices/countrySlice';
 import schema from '../utils/yupSchema';
+import TextInput from '../components/TextInput/TextInput';
+import RadioInput from '../components/RadioInput/RadioInput';
+import CheckboxInput from '../components/CheckboxInput/CheckboxInput';
 
 const ControlFormPage = () => {
   const dispatch = useDispatch();
@@ -81,135 +84,68 @@ const ControlFormPage = () => {
         onSubmit={handleSubmit(onSubmit)}
         className={styles.container}
       >
-        <div className={styles.input__container}>
-          <label className={styles.label} htmlFor="username">
-            Name
-          </label>
-          <input
-            className={`${styles['text-input']} ${errors.username ? styles['error-border'] : ''}`}
-            placeholder="Enter your name"
-            type="text"
-            id="username"
-            {...register('username')}
-          />
-          <p className={styles['error-message']}>{errors.username?.message}</p>
-        </div>
+        <TextInput
+          id="username"
+          placeholder="Enter your name"
+          label="Name"
+          type="text"
+          register={register}
+          error={errors.username}
+        />
 
-        <div className={styles.input__container}>
-          <label className={styles.label} htmlFor="email">
-            Email
-          </label>
-          <input
-            className={`${styles['text-input']} ${errors.email ? styles['error-border'] : ''}`}
-            placeholder="email@example.com"
-            type="email"
-            id="email"
-            {...register('email')}
-          />
-          <p className={styles['error-message']}>{errors.email?.message}</p>
-        </div>
+        <TextInput
+          id="email"
+          placeholder="email@example.com"
+          label="Email"
+          type="email"
+          register={register}
+          error={errors.email}
+        />
 
-        <div className={styles.input__container}>
-          <label className={styles.label} htmlFor="age">
-            Age
-          </label>
-          <input
-            className={`${styles['text-input']} ${errors.age ? styles['error-border'] : ''}`}
-            placeholder="Enter your age"
-            type="number"
-            id="age"
-            {...register('age')}
-          />
-          <p className={styles['error-message']}>{errors.age?.message}</p>
-        </div>
+        <TextInput
+          id="age"
+          placeholder="Enter your age"
+          label="Age"
+          type="text"
+          register={register}
+          error={errors.age}
+        />
 
-        <div className={styles.input__container}>
-          <label className={styles.label} htmlFor="password">
-            Password
-          </label>
-          <input
-            className={`${styles['text-input']} ${errors.password ? styles['error-border'] : ''}`}
-            placeholder="Enter your password"
-            type="password"
-            id="password"
-            {...register('password')}
-          />
-          <p className={styles['error-message']}>{errors.password?.message}</p>
-        </div>
+        <TextInput
+          id="password"
+          placeholder="Enter your password"
+          label="Password"
+          type="password"
+          register={register}
+          error={errors.password}
+        />
 
-        <div className={styles.input__container}>
-          <label className={styles.label} htmlFor="confirm-password">
-            Cofirm password
-          </label>
-          <input
-            className={`${styles['text-input']} ${errors.confirmPassword ? styles['error-border'] : ''}`}
-            placeholder="Confirm password"
-            type="password"
-            id="confirm-password"
-            {...register('confirmPassword')}
-          />
-          <p className={styles['error-message']}>
-            {errors.confirmPassword?.message}
-          </p>
-        </div>
+        <TextInput
+          id="confirmPassword"
+          placeholder="Confirm password"
+          label="Confirm password"
+          type="password"
+          register={register}
+          error={errors.confirmPassword}
+        />
 
-        <div className={styles.input__container}>
-          <label>Gender</label>
-          <Controller
-            name="gender"
-            control={control}
-            render={({ field, fieldState: { error } }) => (
-              <div className={styles['radio-container']}>
-                <label className={styles['radio__item']}>
-                  Male
-                  <input
-                    type="radio"
-                    value="male"
-                    checked={field.value === 'male'}
-                    onChange={() => field.onChange('male')}
-                  />
-                </label>
+        <RadioInput
+          name="gender"
+          control={control}
+          label="Gender"
+          options={[
+            { value: 'male', label: 'Male' },
+            { value: 'female', label: 'Female' },
+          ]}
+          error={errors.gender}
+        />
 
-                <label className={styles['radio__item']}>
-                  Female
-                  <input
-                    type="radio"
-                    value="female"
-                    checked={field.value === 'female'}
-                    onChange={() => field.onChange('female')}
-                  />
-                </label>
-
-                {error && (
-                  <p className={styles['error-message']}>{error.message}</p>
-                )}
-              </div>
-            )}
-          />
-        </div>
-
-        <div className={styles['checkbox-container']}>
-          <Controller
-            name="accept"
-            control={control}
-            render={({ field, fieldState: { error } }) => (
-              <>
-                <label>
-                  I accept all terms and conditions
-                  <input
-                    type="checkbox"
-                    checked={field.value}
-                    onChange={e => field.onChange(e.target.checked)}
-                  />
-                </label>
-
-                {error && (
-                  <p className={styles['error-message']}>{error.message}</p>
-                )}
-              </>
-            )}
-          />
-        </div>
+        <CheckboxInput
+          name="accept"
+          control={control}
+          label="I accept all terms and conditions"
+          error={errors.accept}
+        />
 
         <div className={styles['countries__container']}>
           <label htmlFor="countries">Countries</label>
