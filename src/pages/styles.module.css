@@ -45,6 +45,10 @@ input {
   border-radius: 5px;
 }
 
+.error-border {
+  border: 1px solid tomato;
+}
+
 .error-message {
   color: tomato;
   margin: 0;

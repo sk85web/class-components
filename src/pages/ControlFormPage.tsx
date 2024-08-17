@@ -2,6 +2,7 @@ import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import FormButton from '../components/FormButton/FormButton';
 import styles from './styles.module.css';
@@ -12,11 +13,16 @@ import {
   setEmail,
   setGender,
   setName,
+  setPassword,
+  setConfirmPassword,
+  setAccept,
+  setCountry,
 } from '../redux/slices/controlFormSlice';
-import { ROUTES, VALIDATE } from '../constants';
+import { ROUTES } from '../constants';
 import convertFileToBase64 from '../utils/convertFileToBase64';
 import { useSelector } from 'react-redux';
 import { selectCountries } from '../redux/slices/countrySlice';
+import schema from '../utils/yupSchema';
 
 const ControlFormPage = () => {
   const dispatch = useDispatch();
@@ -26,7 +32,7 @@ const ControlFormPage = () => {
     defaultValues: {
       username: '',
       email: '',
-      age: null,
+      age: 0,
       password: '',
       confirmPassword: '',
       gender: '',
@@ -34,10 +40,12 @@ const ControlFormPage = () => {
       avatar: '',
       country: '',
     },
+    mode: 'all',
+    resolver: yupResolver(schema),
   });
-  const { register, handleSubmit, formState, watch, control } = form;
-
+  const { register, handleSubmit, formState, control } = form;
   const { errors } = formState;
+
   const isFormValid = Object.keys(errors).length === 0;
 
   const countries = useSelector(selectCountries);
@@ -48,7 +56,11 @@ const ControlFormPage = () => {
     if (data.age) {
       dispatch(setAge(data.age));
     }
+    dispatch(setPassword(data.password));
+    dispatch(setConfirmPassword(data.confirmPassword));
     dispatch(setGender(data.gender));
+    dispatch(setAccept(data.accept));
+    dispatch(setCountry(data.country));
 
     if (data.avatar && typeof data.avatar !== 'string') {
       convertFileToBase64(data.avatar, base64Avatar => {
@@ -74,45 +86,13 @@ const ControlFormPage = () => {
             Name
           </label>
           <input
-            className={styles['text-input']}
+            className={`${styles['text-input']} ${errors.username ? styles['error-border'] : ''}`}
             placeholder="Enter your name"
             type="text"
             id="username"
-            {...register('username', {
-              required: {
-                value: true,
-                message: 'User name is required',
-              },
-              pattern: {
-                value: VALIDATE.FIRST_BIG_LETTER,
-                message: 'First letter should be uppercase',
-              },
-            })}
+            {...register('username')}
           />
           <p className={styles['error-message']}>{errors.username?.message}</p>
-        </div>
-
-        <div className={styles.input__container}>
-          <label className={styles.label} htmlFor="age">
-            Age
-          </label>
-          <input
-            className={styles['text-input']}
-            placeholder="Enter your age"
-            type="number"
-            id="age"
-            {...register('age', {
-              required: {
-                value: true,
-                message: 'Age is required',
-              },
-              min: {
-                value: 1,
-                message: 'Incorrect age',
-              },
-            })}
-          />
-          <p className={styles['error-message']}>{errors.age?.message}</p>
         </div>
 
         <div className={styles.input__container}>
@@ -120,22 +100,27 @@ const ControlFormPage = () => {
             Email
           </label>
           <input
-            className={styles['text-input']}
+            className={`${styles['text-input']} ${errors.email ? styles['error-border'] : ''}`}
             placeholder="email@example.com"
             type="email"
             id="email"
-            {...register('email', {
-              required: {
-                value: true,
-                message: 'Email is required',
-              },
-              pattern: {
-                value: VALIDATE.EMAIL,
-                message: 'Invalid email adress',
-              },
-            })}
+            {...register('email')}
           />
           <p className={styles['error-message']}>{errors.email?.message}</p>
+        </div>
+
+        <div className={styles.input__container}>
+          <label className={styles.label} htmlFor="age">
+            Age
+          </label>
+          <input
+            className={`${styles['text-input']} ${errors.age ? styles['error-border'] : ''}`}
+            placeholder="Enter your age"
+            type="number"
+            id="age"
+            {...register('age')}
+          />
+          <p className={styles['error-message']}>{errors.age?.message}</p>
         </div>
 
         <div className={styles.input__container}>
@@ -143,21 +128,11 @@ const ControlFormPage = () => {
             Password
           </label>
           <input
-            className={styles['text-input']}
+            className={`${styles['text-input']} ${errors.password ? styles['error-border'] : ''}`}
             placeholder="Enter your password"
             type="password"
             id="password"
-            {...register('password', {
-              required: {
-                value: true,
-                message: 'Password is required',
-              },
-              pattern: {
-                value: VALIDATE.PASSWORD,
-                message:
-                  'Password should contains 1 number, 1 uppercased letter, 1 lowercased letter, 1 special character',
-              },
-            })}
+            {...register('password')}
           />
           <p className={styles['error-message']}>{errors.password?.message}</p>
         </div>
@@ -167,18 +142,11 @@ const ControlFormPage = () => {
             Cofirm password
           </label>
           <input
-            className={styles['text-input']}
+            className={`${styles['text-input']} ${errors.confirmPassword ? styles['error-border'] : ''}`}
             placeholder="Confirm password"
             type="password"
             id="confirm-password"
-            {...register('confirmPassword', {
-              required: {
-                value: true,
-                message: 'Confirm password is required',
-              },
-              validate: value =>
-                value === watch('password') || "Passwords don't match",
-            })}
+            {...register('confirmPassword')}
           />
           <p className={styles['error-message']}>
             {errors.confirmPassword?.message}
@@ -190,7 +158,6 @@ const ControlFormPage = () => {
           <Controller
             name="gender"
             control={control}
-            rules={{ required: 'Please select your gender' }}
             render={({ field, fieldState: { error } }) => (
               <div className={styles['radio-container']}>
                 <label className={styles['radio__item']}>
@@ -225,7 +192,6 @@ const ControlFormPage = () => {
           <Controller
             name="accept"
             control={control}
-            rules={{ required: 'Please accept terms and conditions' }}
             render={({ field, fieldState: { error } }) => (
               <>
                 <label>
@@ -245,25 +211,35 @@ const ControlFormPage = () => {
           />
         </div>
 
+        <div className={styles['countries__container']}>
+          <label htmlFor="countries">Countries</label>
+          <Controller
+            name="country"
+            control={control}
+            render={({ field, fieldState: { error } }) => (
+              <>
+                <Select
+                  {...field}
+                  options={countries}
+                  placeholder="Select a country"
+                  onChange={option => field.onChange(option?.value)}
+                  value={countries.find(
+                    country => country.value === field.value,
+                  )}
+                />
+
+                {error && (
+                  <p className={styles['error-message']}>{error.message}</p>
+                )}
+              </>
+            )}
+          />
+        </div>
+
         <div className={styles['avatar-container']}>
           <Controller
             name="avatar"
             control={control}
-            rules={{
-              required: 'Please upload avatar',
-              validate: {
-                format: file => {
-                  if (file instanceof File) {
-                    return (
-                      file.type === 'image/jpeg' ||
-                      file.type === 'image/png' ||
-                      'Unsupported file format! Download only jpeg/png'
-                    );
-                  }
-                  return 'Invalid file';
-                },
-              },
-            }}
             render={({ field, fieldState: { error } }) => (
               <>
                 <label>
@@ -278,34 +254,6 @@ const ControlFormPage = () => {
                     }}
                   />
                 </label>
-                {error && (
-                  <p className={styles['error-message']}>{error.message}</p>
-                )}
-              </>
-            )}
-          />
-        </div>
-
-        <div className={styles['countries__container']}>
-          <label htmlFor="countries">Countries</label>
-          <Controller
-            name="country"
-            control={control}
-            rules={{
-              required: 'Please choose country',
-            }}
-            render={({ field, fieldState: { error } }) => (
-              <>
-                <Select
-                  {...field}
-                  options={countries}
-                  placeholder="Select a country"
-                  onChange={option => field.onChange(option?.value)}
-                  value={countries.find(
-                    country => country.value === field.value,
-                  )}
-                />
-
                 {error && (
                   <p className={styles['error-message']}>{error.message}</p>
                 )}

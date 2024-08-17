@@ -8,9 +8,17 @@ interface FormProps {
 }
 
 const FormData: React.FC<FormProps> = ({ formType }) => {
-  const { username, age, email, gender, avatar } = useSelector(
-    (state: RootState) => state.control,
-  );
+  const {
+    username,
+    age,
+    email,
+    password,
+    confirmPassword,
+    gender,
+    accept,
+    avatar,
+    country,
+  } = useSelector((state: RootState) => state.control);
 
   return (
     <div className={styles.form__item}>
@@ -26,14 +34,26 @@ const FormData: React.FC<FormProps> = ({ formType }) => {
           <pre>Email: {formType === 'controlForm' ? email : ''}</pre>
         </li>
         <li>
+          <pre>Password: {formType === 'controlForm' ? password : ''}</pre>
+        </li>
+        <li>
+          <pre>
+            Confirm password:{' '}
+            {formType === 'controlForm' ? confirmPassword : ''}
+          </pre>
+        </li>
+        <li>
           <pre>Gender: {formType === 'controlForm' ? gender : ''}</pre>
+        </li>
+        <li>
+          <pre>Acception Rules: {formType === 'controlForm' ? accept : ''}</pre>
         </li>
         <li>
           <pre>Avatar:</pre>
           {avatar ? (
             formType === 'controlForm' ? (
               <img
-                src={avatar}
+                src={avatar as string}
                 alt="Avatar"
                 style={{ maxWidth: '100px', maxHeight: '100px' }}
               />
@@ -41,6 +61,9 @@ const FormData: React.FC<FormProps> = ({ formType }) => {
           ) : (
             <p>Avatar isn't dowload</p>
           )}
+        </li>
+        <li>
+          <pre>Country: {formType === 'controlForm' ? country : ''}</pre>
         </li>
       </ul>
     </div>

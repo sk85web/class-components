@@ -1,7 +1,7 @@
 export interface FormValues {
   username: string;
   email: string;
-  age: number | null;
+  age: number;
   password: string;
   confirmPassword: string;
   gender: string;
