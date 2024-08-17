@@ -9,7 +9,7 @@
 
 .form__item:hover {
   transform: scale(1.01);
-  box-shadow: 15px 15px 8px 0px rgba(78, 23, 196, 0.2);
+  box-shadow: 0 0 8px 7px rgba(78, 23, 196, 0.2);
 }
 
 .form__item h2 {
