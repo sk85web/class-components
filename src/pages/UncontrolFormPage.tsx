@@ -22,6 +22,9 @@ import convertFileToBase64 from '../utils/convertFileToBase64';
 import { useSelector } from 'react-redux';
 import { selectCountries } from '../redux/slices/countrySlice';
 import schema from '../utils/yupSchema';
+import UncontrolTextInput from '../components/UncontrolTextInput/UncontrolTextInput';
+import UncontrolRadioInput from '../components/UncontrolRadioInput/UncontrolRadioInput';
+import UncontrolCheckboxInput from '../components/UncontrolCheckboxInput/UncontrolCheckboxInput';
 
 const UncontrolledFormPage = () => {
   const dispatch = useDispatch();
@@ -35,13 +38,16 @@ const UncontrolledFormPage = () => {
   const ageRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
-  const genderRefs = useRef<HTMLInputElement[]>([]);
+  const genderRefs = [
+    useRef<HTMLInputElement>(null),
+    useRef<HTMLInputElement>(null),
+  ];
   const acceptRef = useRef<HTMLInputElement>(null);
   const avatarRef = useRef<HTMLInputElement>(null);
   const countryRef = useRef<HTMLSelectElement>(null);
 
   const getGenderValue = () => {
-    return genderRefs.current.find(input => input.checked)?.value || '';
+    return genderRefs.find(ref => ref.current?.checked)?.current?.value || '';
   };
 
   const onSubmit = (e: React.FormEvent) => {
@@ -94,109 +100,66 @@ const UncontrolledFormPage = () => {
     <div>
       <h1 className={styles['page-title']}>Uncontrolled Form Page</h1>
       <form action="/" onSubmit={onSubmit} className={styles.container}>
-        <div className={styles.input__container}>
-          <label className={styles.label} htmlFor="username">
-            Name
-          </label>
-          <input
-            className={styles['text-input']}
-            placeholder="Enter your name"
-            type="text"
-            id="username"
-            ref={usernameRef}
-          />
-          <p className={styles['error-message']}>{errors.username}</p>
-        </div>
+        <UncontrolTextInput
+          id="username"
+          label="Name"
+          type="text"
+          placeholder="Enter your name"
+          ref={usernameRef}
+          error={errors.username}
+        />
 
-        <div className={styles.input__container}>
-          <label className={styles.label} htmlFor="email">
-            Email
-          </label>
-          <input
-            className={styles['text-input']}
-            placeholder="email@example.com"
-            type="email"
-            id="email"
-            ref={emailRef}
-          />
-          <p className={styles['error-message']}>{errors.email}</p>
-        </div>
+        <UncontrolTextInput
+          id="email"
+          label="Email"
+          type="text"
+          placeholder="Enter your email"
+          ref={emailRef}
+          error={errors.email}
+        />
 
-        <div className={styles.input__container}>
-          <label className={styles.label} htmlFor="age">
-            Age
-          </label>
-          <input
-            className={styles['text-input']}
-            placeholder="Enter your age"
-            type="number"
-            id="age"
-            ref={ageRef}
-          />
-          <p className={styles['error-message']}>{errors.age}</p>
-        </div>
+        <UncontrolTextInput
+          id="age"
+          label="Age"
+          type="text"
+          placeholder="Enter your age"
+          ref={ageRef}
+          error={errors.age}
+        />
 
-        <div className={styles.input__container}>
-          <label className={styles.label} htmlFor="password">
-            Password
-          </label>
-          <input
-            className={styles['text-input']}
-            placeholder="Enter your password"
-            type="password"
-            id="password"
-            ref={passwordRef}
-          />
-          <p className={styles['error-message']}>{errors.password}</p>
-        </div>
+        <UncontrolTextInput
+          id="password"
+          label="Password"
+          type="password"
+          placeholder="Enter your password"
+          ref={passwordRef}
+          error={errors.password}
+        />
 
-        <div className={styles.input__container}>
-          <label className={styles.label} htmlFor="confirm-password">
-            Confirm password
-          </label>
-          <input
-            className={styles['text-input']}
-            placeholder="Confirm password"
-            type="password"
-            id="confirm-password"
-            ref={confirmPasswordRef}
-          />
-          <p className={styles['error-message']}>{errors.confirmPassword}</p>
-        </div>
+        <UncontrolTextInput
+          id="confirmPassword"
+          label="Confirm password"
+          type="password"
+          placeholder="Confirm password"
+          ref={confirmPasswordRef}
+          error={errors.confirmPassword}
+        />
 
-        <div className={styles.input__container}>
-          <label>Gender</label>
-          <div className={styles['radio-container']}>
-            <label className={styles['radio__item']}>
-              Male
-              <input
-                type="radio"
-                name="gender"
-                value="male"
-                ref={el => el && genderRefs.current.push(el)}
-              />
-            </label>
+        <UncontrolRadioInput
+          label="Gender"
+          options={[
+            { value: 'male', label: 'Male' },
+            { value: 'female', label: 'Female' },
+          ]}
+          name="gender"
+          refs={genderRefs}
+          error={errors.gender}
+        />
 
-            <label className={styles['radio__item']}>
-              Female
-              <input
-                type="radio"
-                name="gender"
-                value="female"
-                ref={el => el && genderRefs.current.push(el)}
-              />
-            </label>
-          </div>
-          <p className={styles['error-message']}>{errors.gender}</p>
-        </div>
-
-        <div className={styles['checkbox-container']}>
-          <label>
-            I accept all terms and conditions
-            <input type="checkbox" ref={acceptRef} />
-          </label>
-          <p className={styles['error-message']}>{errors.accept}</p>
-        </div>
+        <UncontrolCheckboxInput
+          label="I accept all terms and conditions"
+          ref={acceptRef}
+        />
 
         <div className={styles['countries__container']}>
           <label htmlFor="countries">Countries</label>
