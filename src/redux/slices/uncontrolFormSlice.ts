@@ -3,12 +3,12 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { FormValues } from '../../types';
 
 const initialState: FormValues = {
-  username: 'Your name',
-  email: 'Your email',
+  username: '',
+  email: '',
   age: 0,
   password: '',
   confirmPassword: '',
-  gender: 'Your gender',
+  gender: '',
   accept: false,
   avatar: '',
   country: '',

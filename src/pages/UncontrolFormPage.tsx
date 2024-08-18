@@ -35,10 +35,14 @@ const UncontrolledFormPage = () => {
   const ageRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
-  const genderRef = useRef<HTMLInputElement>(null);
+  const genderRefs = useRef<HTMLInputElement[]>([]);
   const acceptRef = useRef<HTMLInputElement>(null);
   const avatarRef = useRef<HTMLInputElement>(null);
   const countryRef = useRef<HTMLSelectElement>(null);
+
+  const getGenderValue = () => {
+    return genderRefs.current.find(input => input.checked)?.value || '';
+  };
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,7 +53,7 @@ const UncontrolledFormPage = () => {
       age: ageRef.current ? parseInt(ageRef.current.value) : 0,
       password: passwordRef.current?.value || '',
       confirmPassword: confirmPasswordRef.current?.value || '',
-      gender: genderRef.current?.value || '',
+      gender: getGenderValue(),
       accept: acceptRef.current?.checked || false,
       avatar: avatarRef.current?.files?.[0] || '',
       country: countryRef.current?.value || '',
@@ -165,7 +169,12 @@ const UncontrolledFormPage = () => {
           <div className={styles['radio-container']}>
             <label className={styles['radio__item']}>
               Male
-              <input type="radio" name="gender" value="male" ref={genderRef} />
+              <input
+                type="radio"
+                name="gender"
+                value="male"
+                ref={el => el && genderRefs.current.push(el)}
+              />
             </label>
 
             <label className={styles['radio__item']}>
@@ -174,7 +183,7 @@ const UncontrolledFormPage = () => {
                 type="radio"
                 name="gender"
                 value="female"
-                ref={genderRef}
+                ref={el => el && genderRefs.current.push(el)}
               />
             </label>
           </div>
