@@ -1,0 +1,62 @@
+.header__title {
+  font-size: 6rem;
+  color: #ff5733;
+  font-weight: 400;
+  text-transform: uppercase;
+  animation: burn 1s infinite alternate;
+  font-family: 'Russo One', sans-serif;
+}
+
+.header__title_dark {
+  color: #ff5733;
+  animation: burn-dark 1s infinite alternate;
+}
+
+.header__title_light {
+  color: #ff5733;
+  animation: burn-light 1s infinite alternate;
+}
+
+@keyframes burn-dark {
+  0% {
+    color: #ff5733;
+    text-shadow:
+      0 0 5px #ff5733,
+      0 0 10px #ff5733,
+      0 0 15px #ff5733;
+  }
+  100% {
+    color: #ffd700;
+    text-shadow:
+      0 0 5px #ffd700,
+      0 0 10px #ffd700,
+      0 0 15px #ffd700;
+  }
+}
+
+@keyframes burn-light {
+  0% {
+    color: #3f3d3c;
+    text-shadow:
+      0 0 5px #7e716e,
+      0 0 10px #beaeab,
+      0 0 15px #918785;
+  }
+  100% {
+    color: #280b39;
+    text-shadow:
+      0 0 5px #ffd700,
+      0 0 10px #ffd700,
+      0 0 15px #ffd700;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .header__title {
+    font-size: 3rem;
+  }
+
+  .search-field {
+    flex-direction: column;
+  }
+}
